@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KolamAI - Traditional South Indian Designs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Playfair+Display:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body {
+            color: #432818;
+            font-family: 'Roboto', sans-serif;
+        }
+        main {
+            background: linear-gradient(to bottom, #fef5e7, #fff8f0);
+        }
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+        }
+        #kolam-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 5;
+        }
+        .nav-link {
+            position: relative;
+            transition: color 0.3s;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #FF9F1C;
+            transition: width 0.3s;
+        }
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+        .btn-primary {
+            background-color: #FF9F1C;
+            color: #432818;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .btn-primary:hover {
+            background-color: #E88D0B;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+        }
+        .btn-primary:disabled {
+            background-color: #FF9F1C;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        .btn-secondary {
+            background-color: transparent;
+            border: 2px solid #FF9F1C;
+            color: #FF9F1C;
+            transition: all 0.3s ease;
+        }
+        .btn-secondary:hover {
+            background-color: #FF9F1C;
+            color: #432818;
+        }
+        .card {
+            background-color: #FFFFFF;
+            border: 1px solid #FFE6C7;
+            border-radius: 1rem;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05), 0 4px 6px -2px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+        }
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .scroll-animate.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .spinner {
+            animation: spin 1s linear infinite;
+            border-top-color: transparent;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .bg-section-transparent {
+            background-color: rgba(255, 248, 240, 0.85);
+            backdrop-filter: blur(2px);
+        }
+        
+        /* Hero section styles */
+        #home h1 {
+            color: #FF9F1C;
+            font-family: 'Kaushan Script', cursive;
+            line-height: 1.2;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.8); 
+        }
+        
+        #home .btn-primary {
+            background-color: white;
+            color: #432818;
+        }
+        
+        #home .btn-primary:hover {
+            background-color: #f8f8f8;
+            color: #432818;
+        }
+        
+        .hero-line {
+            display: block;
+        }
+        .hero-line:first-child {
+            margin-bottom: 0.5rem;
+        }
+        @media (min-width: 768px) {
+            .hero-line:first-child {
+                margin-bottom: 1rem;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header id="navbar" class="bg-white/80 backdrop-blur-md fixed top-0 left-0 right-0 z-50 shadow-sm">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#home" class="flex items-center space-x-2 z-20">
+                <img src="assets/images/placeholder-logo.png" alt="KolamAI Logo" class="h-10 w-auto">
+            </a>
+            <nav class="hidden md:flex items-center space-x-8">
+                <a href="#home" class="nav-link text-lg font-medium text-[#432818] hover:text-[#FF9F1C]">Home</a>
+                <a href="aboutUs.html" class="nav-link text-lg font-medium text-[#432818] hover:text-[#FF9F1C]">About-Us</a>
+                <a href="#about-kolam" class="nav-link text-lg font-medium text-[#432818] hover:text-[#FF9F1C]">The Art</a>
+                <a href="#about-kolamai" class="nav-link text-lg font-medium text-[#432818] hover:text-[#FF9F1C]">KolamAI</a>
+                <a href="#generator" class="nav-link text-lg font-medium text-[#432818] hover:text-[#FF9F1C]">Create</a>
+            </nav>
+            <button id="mobile-menu-button" class="md:hidden text-2xl text-[#432818] z-20">
+                ☰
+            </button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-white/90">
+            <a href="#home" class="block text-center py-3 px-6 text-lg font-medium text-[#432818] hover:bg-[#FFE6C7]">Home</a>
+            <a href="#about-kolam" class="block text-center py-3 px-6 text-lg font-medium text-[#432818] hover:bg-[#FFE6C7]">The Art</a>
+            <a href="#about-kolamai" class="block text-center py-3 px-6 text-lg font-medium text-[#432818] hover:bg-[#FFE6C7]">KolamAI</a>
+            <a href="#generator" class="block text-center py-3 px-6 text-lg font-medium text-[#432818] hover:bg-[#FFE6C7]">Create</a>
+        </div>
+    </header>
+
+    <main class="relative">
+        <section id="home" class="min-h-screen flex items-center justify-center relative overflow-hidden" style="background-color: #8c2d25;">
+            <canvas id="kolam-canvas"></canvas>
+            <div class="absolute inset-0 bg-black/40 z-10"></div>
+            <div class="container mx-auto px-6 text-center relative z-20">
+                <h1 class="text-6xl md:text-8xl font-bold mb-8">
+                    <span class="hero-line">Unraveling the art</span>
+                    <span class="hero-line">of Infinite loops</span>
+                </h1>
+                <a href="#generator" class="btn-primary inline-block text-xl font-semibold px-10 py-4 rounded-full">
+                    Start Creating
+                </a>
+            </div>
+        </section>
+
+        <div style="background-image: url('assets/images/placeholder-background.png'); background-size: cover; background-position: center; background-attachment: fixed;">
+
+            <section id="about-kolam" class="py-20 md:py-32 scroll-animate bg-section-transparent">
+                <div class="container mx-auto px-6">
+                    <div class="grid md:grid-cols-2 gap-12 items-center">
+                        <div class="text-center md:text-left">
+                            <h2 class="text-4xl md:text-5xl font-bold mb-6">What is Kolam ?</h2>
+                            <p class="text-lg leading-relaxed mb-4">
+                                Kolam is a centuries-old floor-art tradition in Tamil Nadu and neighboring regions, drawn every morning on thresholds using rice flour. Women learn Kolam matrilineally from childhood, and well-composed kolams (sikku Kolam) are socially valued as signs of patience and skill.
+                            </p>
+                            <p class="text-lg leading-relaxed">
+                                UNESCO notes that Kolam patterns are explicitly "symmetrical" and "based on geometry and mathematical principles". Indeed, researchers observe that Kolam consists of closed loops weaving around a a regular grid of dots ("pulli"), following implicit rules. In sum, Kolam is both an integral cultural symbol and a naturally geometric art form exhibiting symmetry, repetition and other mathematical ideas.
+                            </p>
+                        </div>
+                        <div>
+                            <div class="card p-4">
+                                <div class="w-full overflow-hidden rounded-lg aspect-video">
+                                    <img src="assets/images/placeholder-kolam-drawing.jpg" alt="A traditional hand-drawn Kolam design on the floor" class="w-full h-full object-cover">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="about-kolamai" class="py-20 md:py-32 scroll-animate" style="background-color: #fef5e7;">
+                 <div class="container mx-auto px-6">
+                    <div class="grid md:grid-cols-2 gap-12 items-center">
+                        <div class="relative flex justify-center items-center order-last md:order-first">
+                             <div class="card p-4 relative z-10 w-11/12">
+                                <div class="w-full overflow-hidden rounded-lg aspect-square">
+                                    <img src="assets/images/placeholder-kolam-digital.png" alt="A digitally rendered Kolam pattern" class="w-full h-full object-cover">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center md:text-left">
+                            <h2 class="text-4xl md:text-5xl font-bold mb-6">What is <span style="color: #002f4d;">Kolam</span><span style="color: #a77b01;">AI </span>?</h2>
+                            <p class="text-lg leading-relaxed mb-6">
+                                KolamAI is an AI-powered digital heritage platform designed to preserve and digitize the traditional South Indian art of Kolam. Rooted in centuries-old cultural practices, Kolams are intricate geometric patterns made with dots, curves, and symmetry - blending art, mathematics, and spirituality.
+                            </p>
+                            <ul class="space-y-4 text-lg text-left">
+                                <li class="flex items-start">
+                                    <span class="text-[#FF9F1C] mr-3 mt-1 font-bold text-xl">✓</span>
+                                    <span><strong>Preserve cultural heritage</strong> by documenting and digitizing Kolams.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-[#FF9F1C] mr-3 mt-1 font-bold text-xl">✓</span>
+                                    <span><strong>Educate users</strong> on the mathematical and artistic principles behind Kolam.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-[#FF9F1C] mr-3 mt-1 font-bold text-xl">✓</span>
+                                    <span><strong>Analyze patterns</strong> using AI to understand the complexity and beauty of Kolam designs.</span>
+                                </li>
+                            </ul>
+                             <p class="text-lg leading-relaxed mt-6 italic">
+                                KolamAI is where tradition meets technology - ensuring the beauty of Kolams continues to inspire generations to come.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="generator" class="py-20 md:py-32 scroll-animate bg-section-transparent">
+                <div class="container mx-auto px-6">
+                    <div class="text-center mb-16">
+                        <h2 class="text-4xl md:text-5xl font-bold mb-4">Create Your Own Kolam</h2>
+                        <p class="text-xl text-gray-600 max-w-3xl mx-auto">Digitize a real-world Kolam with your camera, or generate a new one from scratch by selecting a grid size.</p>
+                    </div>
+
+                    <div class="grid lg:grid-cols-2 gap-12 items-stretch">
+                        <!-- Digitize -->
+                        <div class="flex flex-col space-y-8">
+                            <h3 class="text-3xl font-bold text-center">Digitize a Kolam</h3>
+                            <div class="card p-6">
+                                <div id="dropzone" class="border-2 border-dashed border-gray-300 rounded-lg p-8 flex flex-col items-center justify-center cursor-pointer hover:border-[#FF9F1C] hover:bg-orange-50 transition-colors mb-4">
+                                    <span class="text-4xl mb-3">📤</span>
+                                    <button id="upload-button" class="btn-secondary font-semibold px-5 py-2 rounded-lg text-sm">Choose File</button>
+                                    <input type="file" id="file-input" class="hidden" accept="image/*">
+                                    <p id="file-name" class="text-xs text-gray-500 mt-2">or drag and drop</p>
+                                </div>
+                                <button id="analyze-button" class="btn-primary w-full text-lg font-semibold px-8 py-3 rounded-lg" disabled>✨ Digitize Kolam</button>
+                            </div>
+                            <div class="grid grid-cols-2 gap-4 flex-grow">
+                                <div class="card p-4">
+                                    <h4 class="text-xl font-bold mb-2 text-center">Your Upload</h4>
+                                    <div id="uploaded-image-container" class="aspect-square bg-gray-50 rounded-lg flex items-center justify-center border-2 border-dashed">
+                                        <p class="text-gray-500 text-sm p-2">Image appears here</p>
+                                    </div>
+                                </div>
+                                <div class="card p-4 flex flex-col">
+                                    <h4 class="text-xl font-bold mb-2 text-center">Digital Recreation</h4>
+                                    <div id="recreated-image-container" class="aspect-square bg-gray-50 rounded-lg flex items-center justify-center border-2 border-dashed">
+                                        <p class="text-gray-500 text-sm p-2">Result appears here</p>
+                                    </div>
+                                    <div id="recreated-actions" class="hidden mt-4 grid grid-cols-2 gap-2">
+                                        <button id="download-recreated-btn" class="btn-secondary w-full py-2 rounded-lg flex items-center justify-center space-x-2 text-sm">
+                                            <i class="fas fa-download"></i>
+                                            <span>Save</span>
+                                        </button>
+                                        <button id="share-recreated-btn" class="btn-secondary w-full py-2 rounded-lg flex items-center justify-center space-x-2 text-sm">
+                                            <i class="fas fa-share-alt"></i>
+                                            <span>Share</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--Generate -->
+                        <div class="flex flex-col space-y-8">
+                            <h3 class="text-3xl font-bold text-center">Generate a Kolam</h3>
+                            <div class="card p-6">
+                                <div class="space-y-4 mb-6">
+                                    <label for="dots-slider" class="block text-lg font-semibold text-center">
+                                        Dot Grid Size: 
+                                        <span id="dots-value" class="text-[#FF9F1C] font-bold text-xl">9x9</span>
+                                    </label>
+                                    <div>
+                                        <input id="dots-slider" type="range" name="dots" min="3" max="15" step="1" value="9" class="w-full h-3 bg-orange-100 rounded-lg appearance-none cursor-pointer">
+                                    </div>
+                                </div>
+                                <button id="generate-button" class="btn-primary w-full text-lg font-semibold px-8 py-3 rounded-lg">🎨 Generate Kolam</button>
+                            </div>
+                            <div class="card p-4 flex flex-col flex-grow">
+                                <h4 class="text-xl font-bold mb-2 text-center">Generated Design</h4>
+                                <div id="generated-image-container" class="aspect-square bg-gray-50 rounded-lg flex items-center justify-center border-2 border-dashed">
+                                    <p class="text-gray-500 text-sm p-2">Your new Kolam will appear here</p>
+                                </div>
+                                <div id="generated-actions" class="hidden mt-4 grid grid-cols-2 gap-2">
+                                    <button id="download-generated-btn" class="btn-secondary w-full py-2 rounded-lg flex items-center justify-center space-x-2 text-sm">
+                                        <i class="fas fa-download"></i>
+                                        <span>Save</span>
+                                    </button>
+                                    <button id="share-generated-btn" class="btn-secondary w-full py-2 rounded-lg flex items-center justify-center space-x-2 text-sm">
+                                        <i class="fas fa-share-alt"></i>
+                                        <span>Share</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="py-6 text-white" style="background-color: #210b2c;">
+        <div class="container mx-auto px-6 text-center">
+             <a href="index.html" class="mb-3 inline-block text-3xl" style="font-family: 'Alice', serif; text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);">
+                <span style="color: #87CEFA;">Kolam</span><span style="color: #FFD700;">AI</span>
+            </a>
+            <p class="text-sm">&copy; 2025 KolamAI. All Rights Reserved to CodeItUp a SIH'25 team from MSIT</p>
+        </div>
+    </footer>
+
+    <!-- Music Permission-->
+    <div id="music-permission-modal" class="hidden fixed inset-0 bg-black/60 z-[100] flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg shadow-2xl p-8 max-w-sm w-full text-center">
+            <h3 class="text-2xl font-bold mb-4">Welcome to KolamAI</h3>
+            <p class="text-gray-600 mb-6">Would you like to experience this site with soothing background music?</p>
+            <div class="flex justify-center space-x-4">
+                <button id="music-yes-btn" class="btn-primary font-semibold px-8 py-2 rounded-lg">Yes</button>
+                <button id="music-no-btn" class="btn-secondary font-semibold px-8 py-2 rounded-lg">No</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Background Music and Control Button -->
+    <audio id="background-music" loop>
+        <source src="assets/bgm.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <button id="music-toggle" class="fixed bottom-5 right-5 z-50 w-14 h-14 rounded-full bg-[#FF9F1C] text-white shadow-lg flex items-center justify-center text-xl hover:bg-[#E88D0B] transition-colors">
+        <i class="fas fa-play"></i>
+    </button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- Basic Nav & Scroll Logic ---
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const navLinks = document.querySelectorAll('header a');
+            const mainNavLinks = document.querySelectorAll('header nav a');
+            const navbar = document.getElementById('navbar');
+            const sections = document.querySelectorAll('section');
+
+            mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (!mobileMenu.classList.contains('hidden')) mobileMenu.classList.add('hidden');
+                });
+            });
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('visible');
+                });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.scroll-animate').forEach(el => observer.observe(el));
+            
+            // --- Hero Canvas Animation ---
+            const canvas = document.getElementById('kolam-canvas');
+            const ctx = canvas.getContext('2d');
+            let width, height, centerX, centerY, scale;
+            
+            const createKolamPath = () => {
+                const path = new Path2D();
+                const dotSpacing = 40;
+                const gridSize = 15;
+                for (let i = -gridSize; i <= gridSize; i++) { for (let j = -gridSize; j <= gridSize; j++) { path.moveTo(i * dotSpacing + 2, j * dotSpacing); path.arc(i * dotSpacing, j * dotSpacing, 2, 0, Math.PI * 2); } }
+                path.moveTo(0, 0);
+                for (let ring = 1; ring <= gridSize; ring++) {
+                    path.moveTo(-(ring - 1) * dotSpacing, -ring * dotSpacing); path.lineTo(ring * dotSpacing, -ring * dotSpacing);
+                    path.moveTo(ring * dotSpacing, -ring * dotSpacing); path.lineTo(ring * dotSpacing, ring * dotSpacing);
+                    path.moveTo(ring * dotSpacing, ring * dotSpacing); path.lineTo(-ring * dotSpacing, ring * dotSpacing);
+                    path.moveTo(-ring * dotSpacing, ring * dotSpacing); path.lineTo(-ring * dotSpacing, -ring * dotSpacing);
+                    if (ring < gridSize) { path.moveTo(-ring * dotSpacing, -ring * dotSpacing); path.lineTo(-ring * dotSpacing, -(ring + 1) * dotSpacing); }
+                }
+                for (let i = -gridSize + 1; i <= gridSize - 1; i += 2) { for (let j = -gridSize + 1; j <= gridSize - 1; j += 2) { const x = i * dotSpacing; const y = j * dotSpacing; path.moveTo(x, y - 10); path.arc(x, y, 10, -Math.PI / 2, 3 * Math.PI / 2); } }
+                return path;
+            };
+            
+            const kolamPath = createKolamPath();
+            const pathLength = 40000;
+            let startTime = 0;
+            const drawDuration = 45000;
+            const pauseDuration = 1000;
+            const totalDuration = (drawDuration * 2) + (pauseDuration * 2);
+            let animFrameId;
+
+            function resizeHeroCanvas() {
+                if (!canvas) return;
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+                centerX = width / 2;
+                centerY = height / 2;
+                scale = Math.min(width, height) * 0.002;
+            }
+
+            function easeInOutCubic(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
+
+            function drawHero(timestamp) {
+                if (!startTime) startTime = timestamp;
+                const elapsed = timestamp - startTime;
+                const cycleTime = elapsed % totalDuration;
+                const drawPhaseEnd = drawDuration;
+                const pauseAfterDrawEnd = drawPhaseEnd + pauseDuration;
+                const undrawPhaseEnd = pauseAfterDrawEnd + drawDuration;
+                let progress;
+                if (cycleTime < drawPhaseEnd) { progress = cycleTime / drawDuration; } else if (cycleTime < pauseAfterDrawEnd) { progress = 1; } else if (cycleTime < undrawPhaseEnd) { progress = 1 - ((cycleTime - pauseAfterDrawEnd) / drawDuration); } else { progress = 0; }
+                const easedProgress = easeInOutCubic(progress);
+                ctx.clearRect(0, 0, width, height);
+                ctx.save();
+                ctx.translate(centerX, centerY);
+                ctx.scale(scale, scale);
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.95)'; ctx.lineWidth = 4; ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.shadowColor = 'rgba(255, 255, 255, 0.6)'; ctx.shadowBlur = 12;
+                const drawLength = easedProgress * pathLength;
+                ctx.setLineDash([drawLength, pathLength]);
+                ctx.stroke(kolamPath);
+                ctx.restore();
+                animFrameId = requestAnimationFrame(drawHero);
+            }
+            
+            const homeSectionObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) { if (!animFrameId) { startTime = 0; animFrameId = requestAnimationFrame(drawHero); } } else { cancelAnimationFrame(animFrameId); animFrameId = null; }
+                });
+            }, { threshold: 0.1 });
+            if (document.getElementById('home')) homeSectionObserver.observe(document.getElementById('home'));
+
+            // --- Kolam Creation Logic ---
+
+           // --- BACKEND URL SETUP ---
+            // ====================================================================================
+            // IMPORTANT: PASTE YOUR PYTHON BACKEND URLS HERE
+            // ====================================================================================
+            
+            // URL for the "Digitize a Kolam" feature.
+            // This should point to the server running your Python file that handles image uploads.
+            // Example: 'http://127.0.0.1:5000/digitize'
+            const digitizeUrl = 'http://127.0.0.1:5000/digitize'; // <-- PASTE DIGITIZE FEATURE URL HERE
+
+            // URL for the "Generate a Kolam" feature.
+            // This should point to the server running your Python file that handles manual generation.
+            // Example: 'http://127.0.0.1:8000/generate'
+            const generateUrl = 'http://127.0.0.1:8000/generate'; // <-- PASTE GENERATE FEATURE URL HERE
+
+            // --- Helper function for Save/Share buttons ---
+            async function setupActionButtons(imgSrc, downloadBtnId, shareBtnId, actionsContainerId, baseFilename) {
+                const downloadBtn = document.getElementById(downloadBtnId);
+                const shareBtn = document.getElementById(shareBtnId);
+                const actionsContainer = document.getElementById(actionsContainerId);
+
+                actionsContainer.classList.remove('hidden');
+
+                // Download functionality
+                downloadBtn.onclick = () => {
+                    const link = document.createElement('a');
+                    link.href = imgSrc;
+                    link.download = `${baseFilename}.png`;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                };
+
+                // Share functionality
+                if (navigator.share) {
+                    shareBtn.style.display = 'flex';
+                    shareBtn.onclick = async () => {
+                        try {
+                            const response = await fetch(imgSrc);
+                            const blob = await response.blob();
+                            const file = new File([blob], `${baseFilename}.png`, { type: blob.type });
+
+                            if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                                await navigator.share({
+                                    files: [file],
+                                    title: 'My Kolam Design',
+                                    text: 'Check out this Kolam I created with KolamAI!',
+                                });
+                            } else {
+                                alert("Sharing not supported on this browser.");
+                            }
+                        } catch (error) {
+                            console.error('Error sharing:', error);
+                            alert('An error occurred while sharing.');
+                        }
+                    };
+                } else {
+                    shareBtn.style.display = 'none';
+                }
+            }
+
+
+            // --- 1. Digitize Kolam Elements & Logic ---
+            const uploadButton = document.getElementById('upload-button');
+            const fileInput = document.getElementById('file-input');
+            const fileNameDisplay = document.getElementById('file-name');
+            const analyzeButton = document.getElementById('analyze-button');
+            const dropzone = document.getElementById('dropzone');
+            const uploadedImageContainer = document.getElementById('uploaded-image-container');
+            const recreatedImageContainer = document.getElementById('recreated-image-container');
+            let uploadedFile = null;
+
+            function handleFileSelect(file) {
+                if (file && file.type.startsWith('image/')) {
+                    fileNameDisplay.textContent = file.name;
+                    analyzeButton.disabled = false;
+                    dropzone.classList.add('border-green-500', 'bg-green-50');
+                    uploadedFile = file;
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        uploadedImageContainer.innerHTML = `<img src="${e.target.result}" alt="Uploaded Kolam" class="max-w-full max-h-full rounded-lg shadow-md">`;
+                    }
+                    reader.readAsDataURL(file);
+                } else {
+                    fileNameDisplay.textContent = 'Please select an image file.';
+                    uploadedFile = null;
+                }
+            }
+            
+            uploadButton.addEventListener('click', () => fileInput.click());
+            fileInput.addEventListener('change', (e) => handleFileSelect(e.target.files[0]));
+            dropzone.addEventListener('dragover', (e) => { e.preventDefault(); dropzone.classList.add('border-[#FF9F1C]'); });
+            dropzone.addEventListener('dragleave', () => dropzone.classList.remove('border-[#FF9F1C]'));
+            dropzone.addEventListener('drop', (e) => { e.preventDefault(); dropzone.classList.remove('border-[#FF9F1C]'); handleFileSelect(e.dataTransfer.files[0]); });
+
+            async function analyzeAndRecreateKolam() {
+                if (!uploadedFile) return;
+                analyzeButton.textContent = 'Processing...';
+                analyzeButton.disabled = true;
+                recreatedImageContainer.innerHTML = `<div class="w-full h-full flex items-center justify-center"><div class="w-12 h-12 border-4 border-[#FF9F1C] rounded-full spinner"></div></div>`;
+
+                const formData = new FormData();
+                formData.append('kolam_image', uploadedFile);
+                formData.append('analyze', ''); // Add the 'analyze' key to match backend logic
+
+                try {
+                    const response = await fetch(digitizeUrl, { method: 'POST', body: formData });
+                    if (!response.ok) throw new Error(`Server responded with status: ${response.status}`);
+                    const htmlText = await response.text();
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(htmlText, 'text/html');
+                    const recreatedImg = doc.querySelector('img[alt="Recreated Kolam Design"]');
+                    if (recreatedImg && recreatedImg.src) {
+                        recreatedImageContainer.innerHTML = `<img src="${recreatedImg.src}" alt="Recreated Kolam Design" class="max-w-full max-h-full rounded-lg shadow-md">`;
+                        setupActionButtons(recreatedImg.src, 'download-recreated-btn', 'share-recreated-btn', 'recreated-actions', 'recreated-kolam');
+                    } else {
+                        throw new Error('Could not find the recreated image in the server response.');
+                    }
+                } catch (error) {
+                    console.error("Error processing Kolam:", error);
+                    recreatedImageContainer.innerHTML = `<p class="text-red-500 text-center p-4">Sorry, an error occurred during processing.</p>`;
+                } finally {
+                    analyzeButton.textContent = '✨ Digitize Kolam';
+                    analyzeButton.disabled = false; 
+                }
+            }
+            analyzeButton.addEventListener('click', analyzeAndRecreateKolam);
+
+            // --- 2. Generate Kolam Elements & Logic ---
+            const dotsSlider = document.getElementById('dots-slider');
+            const dotsValueDisplay = document.getElementById('dots-value');
+            const generateButton = document.getElementById('generate-button');
+            const generatedImageContainer = document.getElementById('generated-image-container');
+
+            dotsSlider.addEventListener('input', () => {
+                const value = dotsSlider.value;
+                dotsValueDisplay.textContent = `${value}x${value}`;
+            });
+
+            async function generateKolamManually() {
+                generateButton.textContent = 'Generating...';
+                generateButton.disabled = true;
+                generatedImageContainer.innerHTML = `<div class="w-full h-full flex items-center justify-center"><div class="w-12 h-12 border-4 border-[#FF9F1C] rounded-full spinner"></div></div>`;
+                
+                const dots = dotsSlider.value;
+                const formData = new FormData();
+                formData.append('dots', dots);
+                formData.append('generate', ''); // Add the 'generate' key to match backend logic
+
+                try {
+                    const response = await fetch(generateUrl, { method: 'POST', body: formData });
+                    if (!response.ok) throw new Error(`Server responded with status: ${response.status}`);
+                    const htmlText = await response.text();
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(htmlText, 'text/html');
+                    const generatedImg = doc.querySelector('img[alt="Recreated Kolam Design"]');
+                     if (generatedImg && generatedImg.src) {
+                        generatedImageContainer.innerHTML = `<img src="${generatedImg.src}" alt="Generated Kolam Design" class="max-w-full max-h-full rounded-lg shadow-md">`;
+                        setupActionButtons(generatedImg.src, 'download-generated-btn', 'share-generated-btn', 'generated-actions', 'generated-kolam');
+                    } else {
+                        throw new Error('Could not find the generated image in the server response.');
+                    }
+                } catch (error) {
+                     console.error("Error generating Kolam:", error);
+                    generatedImageContainer.innerHTML = `<p class="text-red-500 text-center p-4">Sorry, an error occurred during generation.</p>`;
+                } finally {
+                    generateButton.textContent = '🎨 Generate Kolam';
+                    generateButton.disabled = false;
+                }
+            }
+            generateButton.addEventListener('click', generateKolamManually);
+            
+            // --- Global Scroll & Resize ---
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (pageYOffset >= sectionTop - 150) current = section.getAttribute('id');
+                });
+                mainNavLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href')?.substring(1) === current) link.classList.add('active');
+                });
+            });
+            window.addEventListener('resize', resizeHeroCanvas);
+            resizeHeroCanvas();
+
+            // ---BACKGROUND MUSIC---
+            const audio = document.getElementById('background-music');
+            const toggleButton = document.getElementById('music-toggle');
+            const icon = toggleButton.querySelector('i');
+            const modal = document.getElementById('music-permission-modal');
+            const yesBtn = document.getElementById('music-yes-btn');
+            const noBtn = document.getElementById('music-no-btn');
+            
+            audio.volume = 0.2;
+
+            const playAudio = () => {
+                const playPromise = audio.play();
+                if (playPromise !== undefined) {
+                    playPromise.then(_ => {
+                        icon.classList.remove('fa-play');
+                        icon.classList.add('fa-pause');
+                    }).catch(error => {
+                        console.log('Autoplay was prevented.');
+                        icon.classList.remove('fa-pause');
+                        icon.classList.add('fa-play');
+                    });
+                }
+            };
+
+            const navigatedFromAbout = sessionStorage.getItem('navigatedFromAbout');
+            const modalShownInSession = sessionStorage.getItem('musicModalShown');
+            const persistentPermission = localStorage.getItem('musicPermission');
+
+            if (navigatedFromAbout === 'true') {
+                sessionStorage.removeItem('navigatedFromAbout');
+                if (persistentPermission === 'yes') {
+                    const savedTime = localStorage.getItem('musicTime');
+                    const wasPaused = localStorage.getItem('musicPaused') === 'true';
+                    if (savedTime) { audio.currentTime = parseFloat(savedTime); }
+                    if (!wasPaused) { playAudio(); }
+                }
+            } else if (modalShownInSession !== 'true') {
+                if (modal) modal.classList.remove('hidden');
+            } else {
+                if (persistentPermission === 'yes') {
+                    const savedTime = localStorage.getItem('musicTime');
+                    const wasPaused = localStorage.getItem('musicPaused') === 'true';
+                    if (savedTime) { audio.currentTime = parseFloat(savedTime); }
+                    if (!wasPaused) { playAudio(); }
+                }
+            }
+
+            if (yesBtn) {
+                yesBtn.addEventListener('click', () => {
+                    localStorage.setItem('musicPermission', 'yes');
+                    sessionStorage.setItem('musicModalShown', 'true');
+                    modal.classList.add('hidden');
+                    playAudio();
+                });
+            }
+            if (noBtn) {
+                noBtn.addEventListener('click', () => {
+                    localStorage.setItem('musicPermission', 'no');
+                    sessionStorage.setItem('musicModalShown', 'true');
+                    modal.classList.add('hidden');
+                });
+            }
+
+            toggleButton.addEventListener('click', () => {
+                if (localStorage.getItem('musicPermission') !== 'yes') {
+                    localStorage.setItem('musicPermission', 'yes');
+                }
+                if (sessionStorage.getItem('musicModalShown') !== 'true') {
+                    sessionStorage.setItem('musicModalShown', 'true');
+                }
+
+                if (audio.paused) {
+                    playAudio();
+                } else {
+                    audio.pause();
+                    icon.classList.remove('fa-pause');
+                    icon.classList.add('fa-play');
+                }
+            });
+
+            // Save state when leaving the page
+            window.addEventListener('beforeunload', () => {
+                if (localStorage.getItem('musicPermission') === 'yes') {
+                    localStorage.setItem('musicTime', audio.currentTime);
+                    localStorage.setItem('musicPaused', audio.paused);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - KolamAI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alice&family=Kaushan+Script&family=Playfair+Display:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body {
+            color: #432818;
+            font-family: 'Roboto', sans-serif;
+        }
+        main {
+            background: linear-gradient(to bottom, #fef5e7, #fff8f0);
+        }
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+        }
+        .nav-link {
+            position: relative;
+            transition: color 0.3s;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #FF9F1C;
+            transition: width 0.3s;
+        }
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+        .card {
+            background-color: #FFFFFF;
+            border: 1px solid #FFE6C7;
+            border-radius: 1rem;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05), 0 4px 6px -2px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+        }
+        .bg-section-transparent {
+            background-color: rgba(255, 248, 240, 0.85);
+            backdrop-filter: blur(2px);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header id="navbar" class="bg-white/80 backdrop-blur-md sticky top-0 left-0 right-0 z-50 shadow-sm">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-2 z-20">
+                <img src="assets/images/placeholder-logo.png" alt="KolamAI Logo" class="h-10 w-auto">
+            </a>
+            <nav>
+                <a href="index.html" class="nav-link text-lg font-medium text-[#432818] hover:text-[#FF9F1C]">Home</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div style="background-image: url('assets/images/placeholder-background.png'); background-size: cover; background-position: center; background-attachment: fixed;">
+            <section class="py-20 md:py-32 bg-section-transparent">
+                <div class="container mx-auto px-6">
+                    <div class="text-center max-w-4xl mx-auto">
+                        <h1 class="text-4xl md:text-5xl font-bold mb-6">Our Motive</h1>
+                        <p class="text-lg leading-relaxed mb-16">
+                            Team CodeItUp from Meghnad Saha Institute of Technology proudly presents KolamAI for SIH'2025. Our project merges heritage with innovation, creating a digital bridge to preserve the timeless art of Kolam. By leveraging AI, we aim to archive these intricate patterns, foster a deeper appreciation for this Southern Indian tradition, and inspire a new wave of creativity for generations to come.
+                        </p>
+
+                        <h2 class="text-4xl md:text-5xl font-bold mb-12">Meet the Team</h2>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                        <!-- Developer 1 -->
+                        <div class="card text-center p-8">
+                            <img src="assets/img/Ankana.jpg" alt="Developer Anika Desai" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-orange-200">
+                            <h3 class="text-2xl font-bold mb-1">Ankana Debnath</h3>
+                            <p class="font-semibold text-[#FF9F1C] mb-2">Team Lead</p>
+                            <p class="text-md text-gray-600">Ankana, our SIH team lead, spearheads our project with research and design expertise.</p>
+                            <div class="mt-4 flex justify-center space-x-4 text-xl">
+                                <a href="http://github.com/aankana" aria-label="GitHub" class="text-gray-500 hover:text-[#432818] transition-colors"><i class="fab fa-github"></i></a>
+                                <a href="http://www.linkedin.com/in/ankana05" aria-label="LinkedIn" class="text-gray-500 hover:text-[#432818] transition-colors"><i class="fab fa-linkedin"></i></a>
+                                <a href="mailto:ankanadebnath2@gmail.com" aria-label="Email" class="text-gray-500 hover:text-[#432818] transition-colors"><i class="fas fa-envelope"></i></a>
+                            </div>
+                        </div>
+
+                        <!-- Developer 2 -->
+                        <div class="card text-center p-8">
+                            <img src="assets/img/Sourik.jpg" alt="Developer Rohan Verma" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-orange-200">
+                            <h3 class="text-2xl font-bold mb-1">Sourik Majumdar</h3>
+                            <p class="font-semibold text-[#FF9F1C] mb-2">Lead Frontend Developer</p>
+                            <p class="text-md text-gray-600">Sourik crafts the user experience, ensuring the platform is both beautiful and intuitive.</p>
+                            <div class="mt-4 flex justify-center space-x-4 text-xl">
+                                <a href="https://github.com/sourikm04" aria-label="GitHub" class="text-gray-500 hover:text-[#432818] transition-colors"><i class="fab fa-github"></i></a>
+                                <a href="https://www.linkedin.com/in/sourikm04/" aria-label="LinkedIn" class="text-gray-500 hover:text-[#432818] transition-colors"><i class="fab fa-linkedin"></i></a>
+                                <a href="mailto:sourikmajumdar14@gmail.com" aria-label="Email" class="text-gray-500 hover:text-[#432818] transition-colors"><i class="fas fa-envelope"></i></a>
+                            </div>    
+                        </div>
+
+                        <!-- Developer 3 -->
+                        <div class="card text-center p-8">
+                            <img src="assets/img/Aditya.jpg" alt="Developer Priya Sharma" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-orange-200">
+                            <h3 class="text-2xl font-bold mb-1">Aditya Kiran Modak</h3>
+                            <p class="font-semibold text-[#FF9F1C] mb-2">Lead AI Developer</p>
+                            <p class="text-md text-gray-600">Aditya, our Lead AI Developer, is the architect behind our most innovative machine learning models.</p>
+                            <div class="mt-4 flex justify-center space-x-4 text-xl">
+                                <a href="https://github.com/GenomeHykis" aria-label="GitHub" class="text-gray-500 hover:text-[#432818] transition-colors"><i class="fab fa-github"></i></a>
+                                <a href="http://www.linkedin.com/in/aditya-kiran-modak-5a51172a8" aria-label="LinkedIn" class="text-gray-500 hover:text-[#432818] transition-colors"><i class="fab fa-linkedin"></i></a>
+                                <a href="mailto:adityakiran694@gmail.com" aria-label="Email" class="text-gray-500 hover:text-[#432818] transition-colors"><i class="fas fa-envelope"></i></a>
+                            </div>    
+                        </div>
+
+                        <!-- Developer 4 -->
+                        <div class="card text-center p-8">
+                            <img src="assets/img/Chandraniv.jpg" alt="Developer Arjun Rao" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-orange-200">
+                            <h3 class="text-2xl font-bold mb-1">Chandraniv Chakraborty</h3>
+                            <p class="font-semibold text-[#FF9F1C] mb-2">Backend Developer</p>
+                            <p class="text-md text-gray-600">Chandraniv, our backend developer, engineers the robust and scalable engine that powers our entire platform.</p>
+                            <div class="mt-4 flex justify-center space-x-4 text-xl">
+                                <a href="https://github.com/GenomeHykis" aria-label="GitHub" class="text-gray-500 hover:text-[#432818] transition-colors"><i class="fab fa-github"></i></a>
+                                <a href="https://www.linkedin.com/in/chandranivchakraborty/" aria-label="LinkedIn" class="text-gray-500 hover:text-[#432818] transition-colors"><i class="fab fa-linkedin"></i></a>
+                                <a href="mailto:chandranivchakraborty2005@gmail.com" aria-label="Email" class="text-gray-500 hover:text-[#432818] transition-colors"><i class="fas fa-envelope"></i></a>
+                            </div>    
+                        </div>
+
+                        <!-- Developer 5 -->
+                        <div class="card text-center p-8">
+                            <img src="assets/img/Anubhav.jpg" alt="Developer Meera Krishnan" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-orange-200">
+                            <h3 class="text-2xl font-bold mb-1">Anubhab Sen</h3>
+                            <p class="font-semibold text-[#FF9F1C] mb-2">Database Developer</p>
+                            <p class="text-md text-gray-600">Anubhab, as our database developer, expertly architects and safeguards our application's critical data infrastructure.</p>
+                            <div class="mt-4 flex justify-center space-x-4 text-xl">
+                                <a href="https://www.linkedin.com/in/anubhab-sen-70b876385" aria-label="GitHub" class="text-gray-500 hover:text-[#432818] transition-colors"><i class="fab fa-github"></i></a>
+                                <a href="https://github.com/Anubhab-006" aria-label="LinkedIn" class="text-gray-500 hover:text-[#432818] transition-colors"><i class="fab fa-linkedin"></i></a>
+                                <a href="mailto:senanubhab159@gmail.com" aria-label="Email" class="text-gray-500 hover:text-[#432818] transition-colors"><i class="fas fa-envelope"></i></a>
+                            </div>    
+                        </div>
+
+                        <!-- Developer 6 -->
+                        <div class="card text-center p-8">
+                            <img src="assets/img/Ishita.jpg" alt="Developer Vikram Singh" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-orange-200">
+                            <h3 class="text-2xl font-bold mb-1">Ishika Pramanik</h3>
+                            <p class="font-semibold text-[#FF9F1C] mb-2">Speaker / Researcher</p>
+                            <p class="text-md text-gray-600">Ishika, as our Speaker and Researcher, masterfully transforms complex findings into clear and compelling insights for our audience.</p>
+                            <div class="mt-4 flex justify-center space-x-4 text-xl">
+                                <a href="https://github.com/ishikacijtr021-hub" aria-label="GitHub" class="text-gray-500 hover:text-[#432818] transition-colors"><i class="fab fa-github"></i></a>
+                                <a href="https://www.linkedin.com/in/ishika-pramanik-85b562385" aria-label="LinkedIn" class="text-gray-500 hover:text-[#432818] transition-colors"><i class="fab fa-linkedin"></i></a>
+                                <a href="mailto:ishika.cijtr021@gmail.com" aria-label="Email" class="text-gray-500 hover:text-[#432818] transition-colors"><i class="fas fa-envelope"></i></a>
+                            </div>    
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="py-6 text-white" style="background-color: #210b2c;">
+        <div class="container mx-auto px-6 text-center">
+             <a href="index.html" class="mb-3 inline-block text-3xl" style="font-family: 'Alice', serif; text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);">
+                <span style="color: #87CEFA;">Kolam</span><span style="color: #FFD700;">AI</span>
+            </a>
+            <p class="text-sm">&copy; 2025 KolamAI. All Rights Reserved to CodeItUp a SIH'25 team from MSIT.</p>
+        </div>
+    </footer>
+
+    <!-- Background Music and Control Button -->
+    <audio id="background-music" loop>
+        <source src="assets/bgm.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <button id="music-toggle" class="fixed bottom-5 right-5 z-50 w-14 h-14 rounded-full bg-[#FF9F1C] text-white shadow-lg flex items-center justify-center text-xl hover:bg-[#E88D0B] transition-colors">
+        <i class="fas fa-play"></i>
+    </button>
+
+
+</body>
+<script>
+            document.addEventListener('DOMContentLoaded', () => {
+            const homeLink = document.querySelector('header a[href="index.html"]');
+                if (homeLink) {
+                    homeLink.addEventListener('click', () => {
+                    sessionStorage.setItem('navigatedFromAbout', 'true');
+                    });
+                }
+            const audio = document.getElementById('background-music');
+            const toggleButton = document.getElementById('music-toggle');
+            const icon = toggleButton.querySelector('i');
+            
+            audio.volume = 0.2;
+
+            const playAudio = () => {
+                const playPromise = audio.play();
+                if (playPromise !== undefined) {
+                    playPromise.then(_ => {
+                        icon.classList.remove('fa-play');
+                        icon.classList.add('fa-pause');
+                    }).catch(error => {
+                        console.log('Autoplay was prevented.');
+                        icon.classList.remove('fa-pause');
+                        icon.classList.add('fa-play');
+                    });
+                }
+            };
+
+            const permission = localStorage.getItem('musicPermission');
+            if (permission === 'yes') {
+                const savedTime = localStorage.getItem('musicTime');
+                const wasPaused = localStorage.getItem('musicPaused') === 'true';
+                if (savedTime) {
+                    audio.currentTime = parseFloat(savedTime);
+                }
+                if (!wasPaused) {
+                    playAudio();
+                } else {
+                    icon.classList.remove('fa-pause');
+                    icon.classList.add('fa-play');
+                }
+            }
+
+            toggleButton.addEventListener('click', () => {
+                if (localStorage.getItem('musicPermission') !== 'yes') {
+                    localStorage.setItem('musicPermission', 'yes');
+                }
+
+                if (audio.paused) {
+                    playAudio();
+                } else {
+                    audio.pause();
+                    icon.classList.remove('fa-pause');
+                    icon.classList.add('fa-play');
+                }
+            });
+
+            // Save state when leaving the page
+            window.addEventListener('beforeunload', () => {
+                if (localStorage.getItem('musicPermission') === 'yes') {
+                    localStorage.setItem('musicTime', audio.currentTime);
+                    localStorage.setItem('musicPaused', audio.paused);
+                }
+            });
+        });
+</script>
+</html>
+
