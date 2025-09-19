@@ -1,1 +1,1 @@
-# Kolam-Generator
+# KolamAI
