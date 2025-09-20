@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
@@ -141,11 +142,11 @@
     <header id="navbar" class="bg-white/80 backdrop-blur-md fixed top-0 left-0 right-0 z-50 shadow-sm">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="#home" class="flex items-center space-x-2 z-20">
-                <img src="assets/images/placeholder-logo.png" alt="KolamAI Logo" class="h-10 w-auto">
+                <img src="{% static 'images/placeholder-logo.png' %}" alt="KolamAI Logo" class="h-10 w-auto">
             </a>
             <nav class="hidden md:flex items-center space-x-8">
                 <a href="#home" class="nav-link text-lg font-medium text-[#432818] hover:text-[#FF9F1C]">Home</a>
-                <a href="aboutUs.html" class="nav-link text-lg font-medium text-[#432818] hover:text-[#FF9F1C]">About-Us</a>
+                <a href="{% url 'aboutUs' %}" class="nav-link text-lg font-medium text-[#432818] hover:text-[#FF9F1C]">About-Us</a>
                 <a href="#about-kolam" class="nav-link text-lg font-medium text-[#432818] hover:text-[#FF9F1C]">The Art</a>
                 <a href="#about-kolamai" class="nav-link text-lg font-medium text-[#432818] hover:text-[#FF9F1C]">KolamAI</a>
                 <a href="#generator" class="nav-link text-lg font-medium text-[#432818] hover:text-[#FF9F1C]">Create</a>
@@ -156,6 +157,7 @@
         </div>
         <div id="mobile-menu" class="hidden md:hidden bg-white/90">
             <a href="#home" class="block text-center py-3 px-6 text-lg font-medium text-[#432818] hover:bg-[#FFE6C7]">Home</a>
+            <a href="{% url 'aboutUs' %}" class="block text-center py-3 px-6 text-lg font-medium text-[#432818] hover:bg-[#FFE6C7]">About-Us</a>
             <a href="#about-kolam" class="block text-center py-3 px-6 text-lg font-medium text-[#432818] hover:bg-[#FFE6C7]">The Art</a>
             <a href="#about-kolamai" class="block text-center py-3 px-6 text-lg font-medium text-[#432818] hover:bg-[#FFE6C7]">KolamAI</a>
             <a href="#generator" class="block text-center py-3 px-6 text-lg font-medium text-[#432818] hover:bg-[#FFE6C7]">Create</a>
@@ -177,8 +179,8 @@
             </div>
         </section>
 
-        <div style="background-image: url('assets/images/placeholder-background.png'); background-size: cover; background-position: center; background-attachment: fixed;">
-
+        {% static 'images/placeholder-background.png' as about_bg_url %}
+        <div style="background-image: url('{{ about_bg_url }}'); background-size: cover; background-position: center; background-attachment: fixed;">
             <section id="about-kolam" class="py-20 md:py-32 scroll-animate bg-section-transparent">
                 <div class="container mx-auto px-6">
                     <div class="grid md:grid-cols-2 gap-12 items-center">
@@ -194,7 +196,7 @@
                         <div>
                             <div class="card p-4">
                                 <div class="w-full overflow-hidden rounded-lg aspect-video">
-                                    <img src="assets/images/placeholder-kolam-drawing.jpg" alt="A traditional hand-drawn Kolam design on the floor" class="w-full h-full object-cover">
+                                    <img src="{% static 'images/placeholder-kolam-drawing.jpg' %}" alt="A traditional hand-drawn Kolam design on the floor" class="w-full h-full object-cover">
                                 </div>
                             </div>
                         </div>
@@ -203,40 +205,40 @@
             </section>
 
             <section id="about-kolamai" class="py-20 md:py-32 scroll-animate" style="background-color: #fef5e7;">
-                 <div class="container mx-auto px-6">
-                    <div class="grid md:grid-cols-2 gap-12 items-center">
-                        <div class="relative flex justify-center items-center order-last md:order-first">
-                             <div class="card p-4 relative z-10 w-11/12">
-                                <div class="w-full overflow-hidden rounded-lg aspect-square">
-                                    <img src="assets/images/placeholder-kolam-digital.png" alt="A digitally rendered Kolam pattern" class="w-full h-full object-cover">
+                   <div class="container mx-auto px-6">
+                        <div class="grid md:grid-cols-2 gap-12 items-center">
+                            <div class="relative flex justify-center items-center order-last md:order-first">
+                                 <div class="card p-4 relative z-10 w-11/12">
+                                    <div class="w-full overflow-hidden rounded-lg aspect-square">
+                                        <img src="{% static 'images/placeholder-kolam-digital.png' %}" alt="A digitally rendered Kolam pattern" class="w-full h-full object-cover">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="text-center md:text-left">
-                            <h2 class="text-4xl md:text-5xl font-bold mb-6">What is <span style="color: #002f4d;">Kolam</span><span style="color: #a77b01;">AI </span>?</h2>
-                            <p class="text-lg leading-relaxed mb-6">
-                                KolamAI is an AI-powered digital heritage platform designed to preserve and digitize the traditional South Indian art of Kolam. Rooted in centuries-old cultural practices, Kolams are intricate geometric patterns made with dots, curves, and symmetry - blending art, mathematics, and spirituality.
-                            </p>
-                            <ul class="space-y-4 text-lg text-left">
-                                <li class="flex items-start">
-                                    <span class="text-[#FF9F1C] mr-3 mt-1 font-bold text-xl">✓</span>
-                                    <span><strong>Preserve cultural heritage</strong> by documenting and digitizing Kolams.</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <span class="text-[#FF9F1C] mr-3 mt-1 font-bold text-xl">✓</span>
-                                    <span><strong>Educate users</strong> on the mathematical and artistic principles behind Kolam.</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <span class="text-[#FF9F1C] mr-3 mt-1 font-bold text-xl">✓</span>
-                                    <span><strong>Analyze patterns</strong> using AI to understand the complexity and beauty of Kolam designs.</span>
-                                </li>
-                            </ul>
-                             <p class="text-lg leading-relaxed mt-6 italic">
-                                KolamAI is where tradition meets technology - ensuring the beauty of Kolams continues to inspire generations to come.
-                            </p>
+                            <div class="text-center md:text-left">
+                                <h2 class="text-4xl md:text-5xl font-bold mb-6">What is <span style="color: #002f4d;">Kolam</span><span style="color: #a77b01;">AI </span>?</h2>
+                                <p class="text-lg leading-relaxed mb-6">
+                                    KolamAI is an AI-powered digital heritage platform designed to preserve and digitize the traditional South Indian art of Kolam. Rooted in centuries-old cultural practices, Kolams are intricate geometric patterns made with dots, curves, and symmetry - blending art, mathematics, and spirituality.
+                                </p>
+                                <ul class="space-y-4 text-lg text-left">
+                                    <li class="flex items-start">
+                                        <span class="text-[#FF9F1C] mr-3 mt-1 font-bold text-xl">✓</span>
+                                        <span><strong>Preserve cultural heritage</strong> by documenting and digitizing Kolams.</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="text-[#FF9F1C] mr-3 mt-1 font-bold text-xl">✓</span>
+                                        <span><strong>Educate users</strong> on the mathematical and artistic principles behind Kolam.</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="text-[#FF9F1C] mr-3 mt-1 font-bold text-xl">✓</span>
+                                        <span><strong>Analyze patterns</strong> using AI to understand the complexity and beauty of Kolam designs.</span>
+                                    </li>
+                                </ul>
+                                 <p class="text-lg leading-relaxed mt-6 italic">
+                                     KolamAI is where tradition meets technology - ensuring the beauty of Kolams continues to inspire generations to come.
+                                 </p>
+                            </div>
                         </div>
                     </div>
-                </div>
             </section>
             
             <section id="generator" class="py-20 md:py-32 scroll-animate bg-section-transparent">
@@ -325,7 +327,7 @@
 
     <footer class="py-6 text-white" style="background-color: #210b2c;">
         <div class="container mx-auto px-6 text-center">
-             <a href="index.html" class="mb-3 inline-block text-3xl" style="font-family: 'Alice', serif; text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);">
+             <a href="{% url 'index' %}" class="mb-3 inline-block text-3xl" style="font-family: 'Alice', serif; text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);">
                 <span style="color: #87CEFA;">Kolam</span><span style="color: #FFD700;">AI</span>
             </a>
             <p class="text-sm">&copy; 2025 KolamAI. All Rights Reserved to CodeItUp a SIH'25 team from MSIT</p>
@@ -346,7 +348,7 @@
     
     <!-- Background Music and Control Button -->
     <audio id="background-music" loop>
-        <source src="assets/bgm.mp3" type="audio/mpeg">
+        <source src="{% static 'bgm.mp3' %}" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
 
@@ -356,6 +358,23 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // --- CSRF Token for Django POST requests ---
+            function getCookie(name) {
+                let cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    const cookies = document.cookie.split(';');
+                    for (let i = 0; i < cookies.length; i++) {
+                        const cookie = cookies[i].trim();
+                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
+            const csrftoken = getCookie('csrftoken');
+
             // --- Basic Nav & Scroll Logic ---
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
@@ -556,7 +575,11 @@
                 formData.append('analyze', ''); // Add the 'analyze' key to match backend logic
 
                 try {
-                    const response = await fetch(digitizeUrl, { method: 'POST', body: formData });
+                    const response = await fetch(digitizeUrl, {
+                        method: 'POST',
+                        headers: { 'X-CSRFToken': csrftoken },
+                        body: formData
+                    });
                     if (!response.ok) throw new Error(`Server responded with status: ${response.status}`);
                     const htmlText = await response.text();
                     const parser = new DOMParser();
@@ -600,7 +623,11 @@
                 formData.append('generate', ''); // Add the 'generate' key to match backend logic
 
                 try {
-                    const response = await fetch(generateUrl, { method: 'POST', body: formData });
+                    const response = await fetch(generateUrl, {
+                        method: 'POST',
+                        headers: { 'X-CSRFToken': csrftoken },
+                        body: formData
+                    });
                     if (!response.ok) throw new Error(`Server responded with status: ${response.status}`);
                     const htmlText = await response.text();
                     const parser = new DOMParser();

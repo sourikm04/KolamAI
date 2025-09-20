@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
@@ -59,17 +60,18 @@
 
     <header id="navbar" class="bg-white/80 backdrop-blur-md sticky top-0 left-0 right-0 z-50 shadow-sm">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="index.html" class="flex items-center space-x-2 z-20">
-                <img src="assets/images/placeholder-logo.png" alt="KolamAI Logo" class="h-10 w-auto">
+            <a href="{% url 'index' %}" class="flex items-center space-x-2 z-20">
+                <img src="{% static 'images/placeholder-logo.png' %}" alt="KolamAI Logo" class="h-10 w-auto">
             </a>
             <nav>
-                <a href="index.html" class="nav-link text-lg font-medium text-[#432818] hover:text-[#FF9F1C]">Home</a>
+                <a href="{% url 'index' %}" class="nav-link text-lg font-medium text-[#432818] hover:text-[#FF9F1C]">Home</a>
             </nav>
         </div>
     </header>
 
     <main>
-        <div style="background-image: url('assets/images/placeholder-background.png'); background-size: cover; background-position: center; background-attachment: fixed;">
+        {% static 'images/placeholder-background.png' as about_bg_url %}
+        <div style="background-image: url('{{ about_bg_url }}'); background-size: cover; background-position: center; background-attachment: fixed;">
             <section class="py-20 md:py-32 bg-section-transparent">
                 <div class="container mx-auto px-6">
                     <div class="text-center max-w-4xl mx-auto">
@@ -84,7 +86,7 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
                         <!-- Developer 1 -->
                         <div class="card text-center p-8">
-                            <img src="assets/img/Ankana.jpg" alt="Developer Anika Desai" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-orange-200">
+                            <img src="{% static 'img/Ankana.jpg' %}" alt="Developer Anika Desai" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-orange-200">
                             <h3 class="text-2xl font-bold mb-1">Ankana Debnath</h3>
                             <p class="font-semibold text-[#FF9F1C] mb-2">Team Lead</p>
                             <p class="text-md text-gray-600">Ankana, our SIH team lead, spearheads our project with research and design expertise.</p>
@@ -97,7 +99,7 @@
 
                         <!-- Developer 2 -->
                         <div class="card text-center p-8">
-                            <img src="assets/img/Sourik.jpg" alt="Developer Rohan Verma" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-orange-200">
+                            <img src="{% static 'img/Sourik.jpg' %}" alt="Developer Rohan Verma" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-orange-200">
                             <h3 class="text-2xl font-bold mb-1">Sourik Majumdar</h3>
                             <p class="font-semibold text-[#FF9F1C] mb-2">Lead Frontend Developer</p>
                             <p class="text-md text-gray-600">Sourik crafts the user experience, ensuring the platform is both beautiful and intuitive.</p>
@@ -110,7 +112,7 @@
 
                         <!-- Developer 3 -->
                         <div class="card text-center p-8">
-                            <img src="assets/img/Aditya.jpg" alt="Developer Priya Sharma" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-orange-200">
+                            <img src="{% static 'img/Aditya.jpg' %}" alt="Developer Priya Sharma" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-orange-200">
                             <h3 class="text-2xl font-bold mb-1">Aditya Kiran Modak</h3>
                             <p class="font-semibold text-[#FF9F1C] mb-2">Lead AI Developer</p>
                             <p class="text-md text-gray-600">Aditya, our Lead AI Developer, is the architect behind our most innovative machine learning models.</p>
@@ -123,7 +125,7 @@
 
                         <!-- Developer 4 -->
                         <div class="card text-center p-8">
-                            <img src="assets/img/Chandraniv.jpg" alt="Developer Arjun Rao" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-orange-200">
+                            <img src="{% static 'img/Chandraniv.jpg' %}" alt="Developer Arjun Rao" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-orange-200">
                             <h3 class="text-2xl font-bold mb-1">Chandraniv Chakraborty</h3>
                             <p class="font-semibold text-[#FF9F1C] mb-2">Backend Developer</p>
                             <p class="text-md text-gray-600">Chandraniv, our backend developer, engineers the robust and scalable engine that powers our entire platform.</p>
@@ -136,20 +138,20 @@
 
                         <!-- Developer 5 -->
                         <div class="card text-center p-8">
-                            <img src="assets/img/Anubhav.jpg" alt="Developer Meera Krishnan" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-orange-200">
+                            <img src="{% static 'img/Anubhav.jpg' %}" alt="Developer Meera Krishnan" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-orange-200">
                             <h3 class="text-2xl font-bold mb-1">Anubhab Sen</h3>
                             <p class="font-semibold text-[#FF9F1C] mb-2">Database Developer</p>
                             <p class="text-md text-gray-600">Anubhab, as our database developer, expertly architects and safeguards our application's critical data infrastructure.</p>
                             <div class="mt-4 flex justify-center space-x-4 text-xl">
-                                <a href="https://www.linkedin.com/in/anubhab-sen-70b876385" aria-label="GitHub" class="text-gray-500 hover:text-[#432818] transition-colors"><i class="fab fa-github"></i></a>
-                                <a href="https://github.com/Anubhab-006" aria-label="LinkedIn" class="text-gray-500 hover:text-[#432818] transition-colors"><i class="fab fa-linkedin"></i></a>
+                                <a href="https://github.com/Anubhab-006" aria-label="GitHub" class="text-gray-500 hover:text-[#432818] transition-colors"><i class="fab fa-github"></i></a>
+                                <a href="https://www.linkedin.com/in/anubhab-sen-70b876385" aria-label="LinkedIn" class="text-gray-500 hover:text-[#432818] transition-colors"><i class="fab fa-linkedin"></i></a>
                                 <a href="mailto:senanubhab159@gmail.com" aria-label="Email" class="text-gray-500 hover:text-[#432818] transition-colors"><i class="fas fa-envelope"></i></a>
                             </div>    
                         </div>
 
                         <!-- Developer 6 -->
                         <div class="card text-center p-8">
-                            <img src="assets/img/Ishita.jpg" alt="Developer Vikram Singh" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-orange-200">
+                            <img src="{% static 'img/Ishita.jpg' %}" alt="Developer Vikram Singh" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-orange-200">
                             <h3 class="text-2xl font-bold mb-1">Ishika Pramanik</h3>
                             <p class="font-semibold text-[#FF9F1C] mb-2">Speaker / Researcher</p>
                             <p class="text-md text-gray-600">Ishika, as our Speaker and Researcher, masterfully transforms complex findings into clear and compelling insights for our audience.</p>
@@ -167,7 +169,7 @@
 
     <footer class="py-6 text-white" style="background-color: #210b2c;">
         <div class="container mx-auto px-6 text-center">
-             <a href="index.html" class="mb-3 inline-block text-3xl" style="font-family: 'Alice', serif; text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);">
+             <a href="{% url 'index' %}" class="mb-3 inline-block text-3xl" style="font-family: 'Alice', serif; text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);">
                 <span style="color: #87CEFA;">Kolam</span><span style="color: #FFD700;">AI</span>
             </a>
             <p class="text-sm">&copy; 2025 KolamAI. All Rights Reserved to CodeItUp a SIH'25 team from MSIT.</p>
@@ -176,7 +178,7 @@
 
     <!-- Background Music and Control Button -->
     <audio id="background-music" loop>
-        <source src="assets/bgm.mp3" type="audio/mpeg">
+        <source src="{% static 'bgm.mp3' %}" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
 
@@ -187,13 +189,16 @@
 
 </body>
 <script>
-            document.addEventListener('DOMContentLoaded', () => {
-            const homeLink = document.querySelector('header a[href="index.html"]');
-                if (homeLink) {
-                    homeLink.addEventListener('click', () => {
+        document.addEventListener('DOMContentLoaded', () => {
+            const homeLinks = document.querySelectorAll('a[href="{% url \'index\' %}"]');
+            
+            homeLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    // Don't prevent default, just set the item
                     sessionStorage.setItem('navigatedFromAbout', 'true');
-                    });
-                }
+                });
+            });
+
             const audio = document.getElementById('background-music');
             const toggleButton = document.getElementById('music-toggle');
             const icon = toggleButton.querySelector('i');
@@ -253,4 +258,3 @@
         });
 </script>
 </html>
-
