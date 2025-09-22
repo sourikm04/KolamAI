@@ -101,6 +101,55 @@
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
+        
+        /* Pattern Library Styles */
+        .template-category-btn, .difficulty-btn {
+            @apply px-4 py-2 rounded-lg border-2 border-[#FFE6C7] bg-white text-[#432818] hover:bg-[#FF9F1C] hover:text-white transition-colors duration-200;
+        }
+        
+        .template-category-btn.active, .difficulty-btn.active {
+            @apply bg-[#FF9F1C] text-white border-[#FF9F1C];
+        }
+        
+        .template-card {
+            @apply bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 cursor-pointer transform hover:scale-105 border-2 border-transparent hover:border-[#FF9F1C];
+        }
+        
+        .template-card img {
+            @apply w-full h-40 object-cover;
+        }
+        
+        .template-info {
+            @apply p-4 bg-gradient-to-b from-white to-gray-50;
+        }
+        
+        .template-name {
+            @apply font-bold text-[#432818] text-base mb-2;
+        }
+        
+        .template-meta {
+            @apply text-sm text-gray-600 flex justify-between items-center;
+        }
+        
+        .difficulty-badge {
+            @apply px-2 py-1 rounded-full text-xs font-medium;
+        }
+        
+        .difficulty-beginner {
+            @apply bg-green-100 text-green-800;
+        }
+        
+        .difficulty-intermediate {
+            @apply bg-yellow-100 text-yellow-800;
+        }
+        
+        .difficulty-advanced {
+            @apply bg-orange-100 text-orange-800;
+        }
+        
+        .difficulty-expert {
+            @apply bg-red-100 text-red-800;
+        }
         .bg-section-transparent {
             background-color: rgba(255, 248, 240, 0.85);
             backdrop-filter: blur(2px);
@@ -146,7 +195,7 @@
             </a>
             <nav class="hidden md:flex items-center space-x-8">
                 <a href="#home" class="nav-link text-lg font-medium text-[#432818] hover:text-[#FF9F1C]">Home</a>
-                <a href="{% url 'aboutUs' %}" class="nav-link text-lg font-medium text-[#432818] hover:text-[#FF9F1C]">About-Us</a>
+                <a href="/aboutus/" class="nav-link text-lg font-medium text-[#432818] hover:text-[#FF9F1C]">About-Us</a>
                 <a href="#about-kolam" class="nav-link text-lg font-medium text-[#432818] hover:text-[#FF9F1C]">The Art</a>
                 <a href="#about-kolamai" class="nav-link text-lg font-medium text-[#432818] hover:text-[#FF9F1C]">KolamAI</a>
                 <a href="#generator" class="nav-link text-lg font-medium text-[#432818] hover:text-[#FF9F1C]">Create</a>
@@ -157,7 +206,7 @@
         </div>
         <div id="mobile-menu" class="hidden md:hidden bg-white/90">
             <a href="#home" class="block text-center py-3 px-6 text-lg font-medium text-[#432818] hover:bg-[#FFE6C7]">Home</a>
-            <a href="{% url 'aboutUs' %}" class="block text-center py-3 px-6 text-lg font-medium text-[#432818] hover:bg-[#FFE6C7]">About-Us</a>
+            <a href="/aboutus/" class="block text-center py-3 px-6 text-lg font-medium text-[#432818] hover:bg-[#FFE6C7]">About-Us</a>
             <a href="#about-kolam" class="block text-center py-3 px-6 text-lg font-medium text-[#432818] hover:bg-[#FFE6C7]">The Art</a>
             <a href="#about-kolamai" class="block text-center py-3 px-6 text-lg font-medium text-[#432818] hover:bg-[#FFE6C7]">KolamAI</a>
             <a href="#generator" class="block text-center py-3 px-6 text-lg font-medium text-[#432818] hover:bg-[#FFE6C7]">Create</a>
@@ -181,6 +230,8 @@
 
         {% static 'images/placeholder-background.png' as about_bg_url %}
         <div style="background-image: url('{{ about_bg_url }}'); background-size: cover; background-position: center; background-attachment: fixed;">
+
+
             <section id="about-kolam" class="py-20 md:py-32 scroll-animate bg-section-transparent">
                 <div class="container mx-auto px-6">
                     <div class="grid md:grid-cols-2 gap-12 items-center">
@@ -248,12 +299,12 @@
                         <p class="text-xl text-gray-600 max-w-3xl mx-auto">Digitize a real-world Kolam with your camera, or generate a new one from scratch by selecting a grid size.</p>
                     </div>
 
-                    <div class="grid lg:grid-cols-2 gap-12 items-stretch">
+                    <div class="grid lg:grid-cols-2 gap-8 items-stretch">
                         <!-- Digitize -->
-                        <div class="flex flex-col space-y-8">
+                        <div class="flex flex-col space-y-4">
                             <h3 class="text-3xl font-bold text-center">Digitize a Kolam</h3>
                             <div class="card p-6">
-                                <div id="dropzone" class="border-2 border-dashed border-gray-300 rounded-lg p-8 flex flex-col items-center justify-center cursor-pointer hover:border-[#FF9F1C] hover:bg-orange-50 transition-colors mb-4">
+                                <div id="dropzone" class="border-2 border-dashed border-gray-300 rounded-lg p-6 flex flex-col items-center justify-center cursor-pointer hover:border-[#FF9F1C] hover:bg-orange-50 transition-colors mb-4">
                                     <span class="text-4xl mb-3">📤</span>
                                     <button id="upload-button" class="btn-secondary font-semibold px-5 py-2 rounded-lg text-sm">Choose File</button>
                                     <input type="file" id="file-input" class="hidden" accept="image/*">
@@ -262,18 +313,38 @@
                                 <button id="analyze-button" class="btn-primary w-full text-lg font-semibold px-8 py-3 rounded-lg" disabled>✨ Digitize Kolam</button>
                             </div>
                             <div class="grid grid-cols-2 gap-4 flex-grow">
-                                <div class="card p-4">
+                                <div class="card p-4 flex flex-col">
                                     <h4 class="text-xl font-bold mb-2 text-center">Your Upload</h4>
                                     <div id="uploaded-image-container" class="aspect-square bg-gray-50 rounded-lg flex items-center justify-center border-2 border-dashed">
                                         <p class="text-gray-500 text-sm p-2">Image appears here</p>
                                     </div>
+                                    <div class="mt-3 text-center">
+                                        <p class="text-xs text-gray-500 leading-relaxed">
+                                            <i class="fas fa-info-circle mr-1"></i>
+                                            For best results, ensure your Kolam image is properly aligned and clear. Avoid hand-drawn Kolams with unclear or inaccurate patterns.
+                                        </p>
+                                    </div>
                                 </div>
                                 <div class="card p-4 flex flex-col">
                                     <h4 class="text-xl font-bold mb-2 text-center">Digital Recreation</h4>
-                                    <div id="recreated-image-container" class="aspect-square bg-gray-50 rounded-lg flex items-center justify-center border-2 border-dashed">
+                                    
+                                    <div id="recreated-image-container" class="aspect-square bg-gray-50 rounded-lg flex items-center justify-center border-2 border-dashed mb-4">
                                         <p class="text-gray-500 text-sm p-2">Result appears here</p>
                                     </div>
-                                    <div id="recreated-actions" class="hidden mt-4 grid grid-cols-2 gap-2">
+                                    
+                                    <!-- Theme Selection for Digitized -->
+                                    <div class="mb-3">
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Theme:</label>
+                                        <select id="digitized-theme-select" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#FF9F1C] focus:border-transparent">
+                                            <option value="traditional">Traditional (Black & White)</option>
+                                            <option value="colorful">Colorful (Rainbow)</option>
+                                            <option value="golden">Golden (Gold & Brown)</option>
+                                            <option value="ocean">Ocean (Blue & Teal)</option>
+                                            <option value="sunset">Sunset (Orange & Pink)</option>
+                                            <option value="forest">Forest (Green & Brown)</option>
+                                        </select>
+                                    </div>
+                                    <div id="recreated-actions" class="hidden mt-3 grid grid-cols-2 gap-2">
                                         <button id="download-recreated-btn" class="btn-secondary w-full py-2 rounded-lg flex items-center justify-center space-x-2 text-sm">
                                             <i class="fas fa-download"></i>
                                             <span>Save</span>
@@ -288,16 +359,33 @@
                         </div>
 
                         <!--Generate -->
-                        <div class="flex flex-col space-y-8">
+                        <div class="flex flex-col space-y-4">
                             <h3 class="text-3xl font-bold text-center">Generate a Kolam</h3>
                             <div class="card p-6">
-                                <div class="space-y-4 mb-6">
-                                    <label for="dots-slider" class="block text-lg font-semibold text-center">
-                                        Dot Grid Size: 
-                                        <span id="dots-value" class="text-[#FF9F1C] font-bold text-xl">9x9</span>
-                                    </label>
-                                    <div>
-                                        <input id="dots-slider" type="range" name="dots" min="3" max="15" step="1" value="9" class="w-full h-3 bg-orange-100 rounded-lg appearance-none cursor-pointer">
+                                <div class="space-y-4 mb-4">
+                                    
+                                    <!-- Grid Size -->
+                                    <div class="space-y-2">
+                                        <label for="dots-slider" class="block text-lg font-semibold text-center text-[#432818]">
+                                            Dot Grid Size: 
+                                            <span id="dots-value" class="text-[#FF9F1C] font-bold text-xl">9x9</span>
+                                        </label>
+                                        <div>
+                                            <input id="dots-slider" type="range" name="dots" min="3" max="15" step="1" value="9" class="w-full h-3 bg-orange-100 rounded-lg appearance-none cursor-pointer">
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Theme Selection -->
+                                    <div class="space-y-2">
+                                        <label class="block text-lg font-semibold text-center text-[#432818]">Theme</label>
+                                        <select id="theme-select" class="w-full p-3 border border-[#FFE6C7] rounded-lg bg-white text-[#432818] focus:ring-2 focus:ring-[#FF9F1C] focus:border-[#FF9F1C]">
+                                            <option value="traditional">Traditional (Black & White)</option>
+                                            <option value="colorful">Colorful (Rainbow)</option>
+                                            <option value="golden">Golden (Gold & Brown)</option>
+                                            <option value="ocean">Ocean (Blue & Teal)</option>
+                                            <option value="sunset">Sunset (Orange & Pink)</option>
+                                            <option value="forest">Forest (Green & Brown)</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <button id="generate-button" class="btn-primary w-full text-lg font-semibold px-8 py-3 rounded-lg">🎨 Generate Kolam</button>
@@ -319,6 +407,63 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Pattern Library - Enhanced and Prominent -->
+                        <div class="col-span-2 flex justify-center w-full">
+                            <div class="flex flex-col space-y-8 w-full max-w-6xl px-4">
+                                <div class="text-center">
+                                    <h3 class="text-4xl font-bold text-[#432818] mb-2">My Pattern Library</h3>
+                                    <p class="text-lg text-gray-600">Your personal collection of beautiful Kolam designs</p>
+                                </div>
+                            
+                            <!-- Enhanced Pattern Categories -->
+                            <div class="card p-8 shadow-xl">
+                                <div class="mb-6">
+                                    <h4 class="text-xl font-semibold text-[#432818] mb-4">Filter by Category</h4>
+                                    <div class="flex flex-wrap gap-3 justify-center">
+                                        <button id="all-patterns-btn" class="template-category-btn active bg-[#FF9F1C] text-white px-6 py-3 rounded-full font-semibold shadow-lg hover:shadow-xl transition-all" onclick="filterPatterns('all')">
+                                            <i class="fas fa-th-large mr-2"></i>All Patterns
+                                        </button>
+                                        <button class="template-category-btn bg-white border-2 border-[#FF9F1C] text-[#FF9F1C] px-6 py-3 rounded-full font-semibold hover:bg-[#FF9F1C] hover:text-white transition-all" data-category="generated" onclick="filterPatterns('generated')">
+                                            <i class="fas fa-magic mr-2"></i>Generated
+                                        </button>
+                                        <button class="template-category-btn bg-white border-2 border-[#FF9F1C] text-[#FF9F1C] px-6 py-3 rounded-full font-semibold hover:bg-[#FF9F1C] hover:text-white transition-all" data-category="digitized" onclick="filterPatterns('digitized')">
+                                            <i class="fas fa-camera mr-2"></i>Digitized
+                                        </button>
+                                        <button class="template-category-btn bg-white border-2 border-[#FF9F1C] text-[#FF9F1C] px-6 py-3 rounded-full font-semibold hover:bg-[#FF9F1C] hover:text-white transition-all" data-category="favorites" onclick="filterPatterns('favorites')">
+                                            <i class="fas fa-heart mr-2"></i>Favorites
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div id="user-patterns-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+                                    <!-- User patterns will be loaded here -->
+                                </div>
+                                
+                                <!-- Enhanced Empty state -->
+                                <div id="empty-patterns-state" class="hidden text-center py-16">
+                                    <div class="text-8xl mb-6">🎨</div>
+                                    <h4 class="text-2xl font-bold text-[#432818] mb-4">Your Pattern Library Awaits</h4>
+                                    <p class="text-lg text-gray-600 mb-8 max-w-md mx-auto">Create and save your first beautiful Kolam pattern to start building your personal collection!</p>
+                                    <button onclick="document.getElementById('generator').scrollIntoView()" class="btn-primary px-8 py-4 text-lg font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all">
+                                        <i class="fas fa-plus mr-2"></i>Start Creating
+                                    </button>
+                                </div>
+                                
+                                <!-- Library Tools -->
+                                <div class="mt-8 pt-6 border-t border-gray-200">
+                                    <div class="flex flex-wrap gap-3 mb-4 justify-center">
+                                        <button id="save-pattern-btn" class="btn-secondary flex items-center space-x-2 px-4 py-2">
+                                            <i class="fas fa-save"></i>
+                                            <span>Save Pattern</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                
+
                     </div>
                 </div>
             </section>
@@ -342,6 +487,186 @@
             <div class="flex justify-center space-x-4">
                 <button id="music-yes-btn" class="btn-primary font-semibold px-8 py-2 rounded-lg">Yes</button>
                 <button id="music-no-btn" class="btn-secondary font-semibold px-8 py-2 rounded-lg">No</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Pattern Detail Modal -->
+    <div id="pattern-detail-modal" class="hidden fixed inset-0 bg-black/60 z-[100] flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg shadow-2xl p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold">Pattern Details</h3>
+                <button id="close-pattern-modal" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Pattern Image -->
+                <div class="space-y-4">
+                    <div class="aspect-square bg-gray-50 rounded-lg border-2 border-dashed flex items-center justify-center">
+                        <img id="pattern-detail-image" src="" alt="Pattern" class="max-w-full max-h-full rounded-lg shadow-md hidden">
+                        <div id="pattern-detail-placeholder" class="text-gray-500 text-center">
+                            <div class="text-4xl mb-2">🎨</div>
+                            <p>Pattern Preview</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Action Buttons -->
+                    <div class="grid grid-cols-2 gap-3">
+                        <button id="download-pattern-btn" class="btn-primary flex items-center justify-center space-x-2 py-2 rounded-lg">
+                            <i class="fas fa-download"></i>
+                            <span>Download</span>
+                        </button>
+                        <button id="share-pattern-btn" class="btn-secondary flex items-center justify-center space-x-2 py-2 rounded-lg">
+                            <i class="fas fa-share-alt"></i>
+                            <span>Share</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Pattern Info -->
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Pattern Name</label>
+                        <div class="flex items-center space-x-2">
+                            <input id="pattern-name-input" type="text" class="flex-1 p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#FF9F1C] focus:border-transparent" readonly>
+                            <button id="edit-name-btn" class="btn-secondary px-3 py-2 rounded-lg">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Grid Size</label>
+                            <input id="pattern-grid-size" type="text" class="w-full p-2 border border-gray-300 rounded-lg bg-gray-50" readonly>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Theme</label>
+                            <input id="pattern-theme" type="text" class="w-full p-2 border border-gray-300 rounded-lg bg-gray-50" readonly>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Category</label>
+                        <select id="pattern-category-select" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#FF9F1C] focus:border-transparent">
+                            <option value="generated">Generated</option>
+                            <option value="digitized">Digitized</option>
+                            <option value="favorites">Favorites</option>
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Created</label>
+                        <input id="pattern-created-date" type="text" class="w-full p-2 border border-gray-300 rounded-lg bg-gray-50" readonly>
+                    </div>
+                    
+                    <div class="flex items-center space-x-2">
+                        <input id="pattern-favorite-checkbox" type="checkbox" class="rounded border-gray-300 text-[#FF9F1C] focus:ring-[#FF9F1C]">
+                        <label for="pattern-favorite-checkbox" class="text-sm font-medium text-gray-700">Mark as Favorite</label>
+                    </div>
+                    
+                    <!-- Save/Cancel Buttons -->
+                    <div class="flex space-x-3 pt-4">
+                        <button id="save-pattern-changes" class="btn-primary flex-1 py-2 rounded-lg">
+                            Save Changes
+                        </button>
+                        <button id="delete-pattern-btn" class="btn-secondary flex-1 py-2 rounded-lg text-red-600 border-red-300 hover:bg-red-50">
+                            Delete Pattern
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Save Pattern Modal -->
+    <div id="save-pattern-modal" class="hidden fixed inset-0 bg-black/60 z-[100] flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg shadow-2xl p-8 max-w-md w-full">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold text-[#432818]">Save Pattern</h3>
+                <button id="close-save-modal" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
+            </div>
+            
+            <div class="space-y-6">
+                <!-- Pattern Selection (shown when both exist) -->
+                <div id="pattern-selection" class="hidden">
+                    <label class="block text-sm font-medium text-gray-700 mb-3">Select Pattern to Save</label>
+                    <div class="space-y-3">
+                        <label class="flex items-center p-3 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50">
+                            <input type="radio" name="pattern-choice" value="generated" class="mr-3 text-[#FF9F1C] focus:ring-[#FF9F1C]">
+                            <div class="flex-1">
+                                <div class="font-medium text-gray-900">🎨 Generated Pattern</div>
+                                <div class="text-sm text-gray-500">AI-generated Kolam design</div>
+                            </div>
+                        </label>
+                        <label class="flex items-center p-3 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50">
+                            <input type="radio" name="pattern-choice" value="digitized" class="mr-3 text-[#FF9F1C] focus:ring-[#FF9F1C]">
+                            <div class="flex-1">
+                                <div class="font-medium text-gray-900">📷 Digitized Pattern</div>
+                                <div class="text-sm text-gray-500">Digitized from uploaded image</div>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Pattern Name Input -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Pattern Name</label>
+                    <input id="save-pattern-name" type="text" placeholder="Enter pattern name..." class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#FF9F1C] focus:border-transparent">
+                    <div id="name-error" class="hidden text-red-500 text-sm mt-1"></div>
+                </div>
+                
+                <!-- Category Selection (hidden when pattern selection is shown) -->
+                <div id="category-selection">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Category</label>
+                    <select id="save-pattern-category" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#FF9F1C] focus:border-transparent">
+                        <option value="generated">🎨 Generated</option>
+                        <option value="digitized">📷 Digitized</option>
+                    </select>
+                </div>
+                
+                <!-- Action Buttons -->
+                <div class="flex space-x-3 pt-4">
+                    <button id="cancel-save-pattern" class="btn-secondary flex-1 py-3 rounded-lg">
+                        Cancel
+                    </button>
+                    <button id="confirm-save-pattern" class="btn-primary flex-1 py-3 rounded-lg">
+                        <i class="fas fa-save mr-2"></i>Save Pattern
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Custom Alert Modal -->
+    <div id="custom-alert-modal" class="hidden fixed inset-0 bg-black/60 z-[100] flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg shadow-2xl p-8 max-w-md w-full">
+            <div class="text-center">
+                <div class="text-6xl mb-4">ℹ️</div>
+                <h3 id="alert-title" class="text-xl font-bold text-[#432818] mb-4">Information</h3>
+                <p id="alert-message" class="text-gray-600 mb-6">Message goes here</p>
+                <button id="alert-ok-btn" class="btn-primary px-8 py-3 rounded-lg">
+                    OK
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Custom Confirm Modal -->
+    <div id="custom-confirm-modal" class="hidden fixed inset-0 bg-black/60 z-[100] flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg shadow-2xl p-8 max-w-md w-full">
+            <div class="text-center">
+                <div class="text-6xl mb-4">⚠️</div>
+                <h3 id="confirm-title" class="text-xl font-bold text-[#432818] mb-4">Confirm Action</h3>
+                <p id="confirm-message" class="text-gray-600 mb-6">Are you sure?</p>
+                <div class="flex space-x-3 justify-center">
+                    <button id="confirm-cancel-btn" class="btn-secondary px-6 py-3 rounded-lg">
+                        Cancel
+                    </button>
+                    <button id="confirm-ok-btn" class="btn-primary px-6 py-3 rounded-lg">
+                        Confirm
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -475,14 +800,63 @@
             // ====================================================================================
             
             // URL for the "Digitize a Kolam" feature.
-            // This should point to the server running your Python file that handles image uploads.
-            // Example: 'http://127.0.0.1:5000/digitize'
-            const digitizeUrl = 'http://127.0.0.1:5000/digitize'; // <-- PASTE DIGITIZE FEATURE URL HERE
+            const digitizeUrl = '/digitize/';
 
             // URL for the "Generate a Kolam" feature.
-            // This should point to the server running your Python file that handles manual generation.
-            // Example: 'http://127.0.0.1:8000/generate'
-            const generateUrl = 'http://127.0.0.1:8000/generate'; // <-- PASTE GENERATE FEATURE URL HERE
+            const generateUrl = '/generate/';
+            
+            // Theme definitions
+            const themes = {
+                'traditional': {
+                    name: 'Traditional',
+                    colors: {
+                        background: '#ffffff',
+                        stroke: '#000000',
+                        fill: '#000000'
+                    }
+                },
+                'colorful': {
+                    name: 'Colorful',
+                    colors: {
+                        background: '#ffffff',
+                        stroke: '#ff6b6b',
+                        fill: '#4ecdc4'
+                    }
+                },
+                'golden': {
+                    name: 'Golden',
+                    colors: {
+                        background: '#fff8e1',
+                        stroke: '#ff8f00',
+                        fill: '#ffb300'
+                    }
+                },
+                'ocean': {
+                    name: 'Ocean',
+                    colors: {
+                        background: '#e3f2fd',
+                        stroke: '#1976d2',
+                        fill: '#03a9f4'
+                    }
+                },
+                'sunset': {
+                    name: 'Sunset',
+                    colors: {
+                        background: '#fce4ec',
+                        stroke: '#e91e63',
+                        fill: '#ff9800'
+                    }
+                },
+                'forest': {
+                    name: 'Forest',
+                    colors: {
+                        background: '#f1f8e9',
+                        stroke: '#388e3c',
+                        fill: '#689f38'
+                    }
+                }
+            };
+            
 
             // --- Helper function for Save/Share buttons ---
             async function setupActionButtons(imgSrc, downloadBtnId, shareBtnId, actionsContainerId, baseFilename) {
@@ -518,11 +892,11 @@
                                     text: 'Check out this Kolam I created with KolamAI!',
                                 });
                             } else {
-                                alert("Sharing not supported on this browser.");
+                                await customAlert("Sharing not supported on this browser.", "Sharing Not Supported");
                             }
                         } catch (error) {
                             console.error('Error sharing:', error);
-                            alert('An error occurred while sharing.');
+                            await customAlert('An error occurred while sharing.', 'Sharing Error');
                         }
                     };
                 } else {
@@ -573,6 +947,7 @@
                 const formData = new FormData();
                 formData.append('kolam_image', uploadedFile);
                 formData.append('analyze', ''); // Add the 'analyze' key to match backend logic
+                formData.append('theme', digitizedThemeSelect.value); // Add theme selection
 
                 try {
                     const response = await fetch(digitizeUrl, {
@@ -581,15 +956,24 @@
                         body: formData
                     });
                     if (!response.ok) throw new Error(`Server responded with status: ${response.status}`);
-                    const htmlText = await response.text();
-                    const parser = new DOMParser();
-                    const doc = parser.parseFromString(htmlText, 'text/html');
-                    const recreatedImg = doc.querySelector('img[alt="Recreated Kolam Design"]');
-                    if (recreatedImg && recreatedImg.src) {
-                        recreatedImageContainer.innerHTML = `<img src="${recreatedImg.src}" alt="Recreated Kolam Design" class="max-w-full max-h-full rounded-lg shadow-md">`;
-                        setupActionButtons(recreatedImg.src, 'download-recreated-btn', 'share-recreated-btn', 'recreated-actions', 'recreated-kolam');
+                    const data = await response.json();
+                    if (data.success && data.digitized_image) {
+                        const imageSrc = `data:image/png;base64,${data.digitized_image}`;
+                        recreatedImageContainer.innerHTML = `<img src="${imageSrc}" alt="Recreated Kolam Design" class="max-w-full max-h-full rounded-lg shadow-md">`;
+                        setupActionButtons(imageSrc, 'download-recreated-btn', 'share-recreated-btn', 'recreated-actions', 'recreated-kolam');
+                        
+                        // Store the digitized pattern data for saving
+                        currentDigitizedPattern = {
+                            type: 'digitized',
+                            image: data.digitized_image,
+                            grid_size: data.grid_size || 9,
+                            theme: digitizedThemeSelect.value
+                        };
+                        
+                        // Update current pattern for backward compatibility
+                        currentPattern = currentDigitizedPattern;
                     } else {
-                        throw new Error('Could not find the recreated image in the server response.');
+                        throw new Error(data.error || 'Could not process the image.');
                     }
                 } catch (error) {
                     console.error("Error processing Kolam:", error);
@@ -606,11 +990,956 @@
             const dotsValueDisplay = document.getElementById('dots-value');
             const generateButton = document.getElementById('generate-button');
             const generatedImageContainer = document.getElementById('generated-image-container');
-
+            
+            // Theme selection elements
+            const themeSelect = document.getElementById('theme-select');
+            const digitizedThemeSelect = document.getElementById('digitized-theme-select');
+            
+            
+            // Event listeners
             dotsSlider.addEventListener('input', () => {
                 const value = dotsSlider.value;
                 dotsValueDisplay.textContent = `${value}x${value}`;
             });
+            
+            // Theme change listeners
+            themeSelect.addEventListener('change', () => {
+                const selectedTheme = themeSelect.value;
+                console.log('Theme changed to:', selectedTheme);
+            });
+            
+            digitizedThemeSelect.addEventListener('change', () => {
+                const selectedTheme = digitizedThemeSelect.value;
+                console.log('Digitized theme changed to:', selectedTheme);
+            });
+            
+            // ====================================================================================
+            // NEW FEATURES: Pattern Library, Advanced Customization, Interactive Features
+            // ====================================================================================
+            
+            // Pattern Library Variables
+            const userPatternsGrid = document.getElementById('user-patterns-grid');
+            const templateCategoryBtns = document.querySelectorAll('.template-category-btn');
+            const difficultyBtns = document.querySelectorAll('.difficulty-btn');
+            const emptyPatternsState = document.getElementById('empty-patterns-state');
+            
+            // Pattern Detail Modal Variables
+            const patternDetailModal = document.getElementById('pattern-detail-modal');
+            const closePatternModal = document.getElementById('close-pattern-modal');
+            const patternDetailImage = document.getElementById('pattern-detail-image');
+            const patternDetailPlaceholder = document.getElementById('pattern-detail-placeholder');
+            const patternNameInput = document.getElementById('pattern-name-input');
+            const editNameBtn = document.getElementById('edit-name-btn');
+            const patternGridSize = document.getElementById('pattern-grid-size');
+            const patternTheme = document.getElementById('pattern-theme');
+            const patternCategorySelect = document.getElementById('pattern-category-select');
+            const patternCreatedDate = document.getElementById('pattern-created-date');
+            const patternFavoriteCheckbox = document.getElementById('pattern-favorite-checkbox');
+            const savePatternChanges = document.getElementById('save-pattern-changes');
+            
+            // Save Pattern Modal Variables
+            const savePatternModal = document.getElementById('save-pattern-modal');
+            const closeSaveModal = document.getElementById('close-save-modal');
+            const savePatternName = document.getElementById('save-pattern-name');
+            const savePatternCategory = document.getElementById('save-pattern-category');
+            const cancelSavePattern = document.getElementById('cancel-save-pattern');
+            const confirmSavePattern = document.getElementById('confirm-save-pattern');
+            const patternSelection = document.getElementById('pattern-selection');
+            const categorySelection = document.getElementById('category-selection');
+            const nameError = document.getElementById('name-error');
+            
+            // Custom Alert/Confirm Modal Variables
+            const customAlertModal = document.getElementById('custom-alert-modal');
+            const alertTitle = document.getElementById('alert-title');
+            const alertMessage = document.getElementById('alert-message');
+            const alertOkBtn = document.getElementById('alert-ok-btn');
+            
+            const customConfirmModal = document.getElementById('custom-confirm-modal');
+            const confirmTitle = document.getElementById('confirm-title');
+            const confirmMessage = document.getElementById('confirm-message');
+            const confirmCancelBtn = document.getElementById('confirm-cancel-btn');
+            const confirmOkBtn = document.getElementById('confirm-ok-btn');
+            const deletePatternBtn = document.getElementById('delete-pattern-btn');
+            const downloadPatternBtn = document.getElementById('download-pattern-btn');
+            const sharePatternBtn = document.getElementById('share-pattern-btn');
+            
+            let currentPatternDetail = null;
+            
+            
+            // Interactive Features Variables
+            const savePatternBtn = document.getElementById('save-pattern-btn');
+            
+            // Current pattern state
+            let currentPattern = null;
+            let currentDigitizedPattern = null;
+            let currentGeneratedPattern = null;
+            let currentCategoryFilter = 'all';
+            
+            // API URLs for new features
+            const userPatternsUrl = '/user-patterns/';
+            const savePatternUrl = '/save-pattern/';
+            const updatePatternUrl = '/update-pattern/';
+            const deletePatternUrl = '/delete-pattern/';
+            const addToHistoryUrl = '/add-to-history/';
+            const undoUrl = '/undo/';
+            const redoUrl = '/redo/';
+            const realtimePreviewUrl = '/realtime-preview/';
+            const preferencesUrl = '/preferences/';
+            const updatePreferencesUrl = '/update-preferences/';
+            
+            // Initialize new features
+            initializePatternLibrary();
+            
+            // Test category buttons immediately
+            setTimeout(() => {
+                console.log('Testing category buttons...');
+                const testButtons = document.querySelectorAll('.template-category-btn');
+                console.log('Test found', testButtons.length, 'buttons');
+                testButtons.forEach((btn, i) => {
+                    console.log(`Button ${i}:`, btn.textContent, btn.dataset.category, btn.id);
+                    console.log('Button onclick:', typeof btn.onclick);
+                });
+                
+                // Test if buttons are clickable
+                console.log('Testing button clicks...');
+                testButtons.forEach((btn, i) => {
+                    if (btn.onclick) {
+                        console.log(`Button ${i} has onclick handler`);
+                    } else {
+                        console.log(`Button ${i} has NO onclick handler`);
+                    }
+                });
+            }, 2000);
+            
+            // Global function for testing
+            window.testCategoryFilter = function(category) {
+                console.log('Testing category filter:', category);
+                currentCategoryFilter = category;
+                setActiveCategory(category);
+                loadUserPatterns();
+            };
+            
+            // Global function to manually trigger button clicks
+            window.clickCategoryButton = function(buttonText) {
+                const buttons = document.querySelectorAll('.template-category-btn');
+                buttons.forEach(btn => {
+                    if (btn.textContent.includes(buttonText)) {
+                        console.log('Manually clicking button:', btn.textContent);
+                        btn.click();
+                    }
+                });
+            };
+            
+            // Test all categories
+            window.testAllCategories = function() {
+                console.log('Testing all categories...');
+                setTimeout(() => testCategoryFilter('all'), 100);
+                setTimeout(() => testCategoryFilter('generated'), 200);
+                setTimeout(() => testCategoryFilter('digitized'), 300);
+                setTimeout(() => testCategoryFilter('favorites'), 400);
+                setTimeout(() => testCategoryFilter('all'), 500);
+            };
+            
+            // Manual test function
+            window.manualTest = function() {
+                console.log('Manual test starting...');
+                console.log('Current filter:', currentCategoryFilter);
+                
+                // Test each button directly
+                const allBtn = document.getElementById('all-patterns-btn');
+                const generatedBtn = document.querySelector('[data-category="generated"]');
+                const digitizedBtn = document.querySelector('[data-category="digitized"]');
+                const favoritesBtn = document.querySelector('[data-category="favorites"]');
+                
+                console.log('Buttons found:', {
+                    all: !!allBtn,
+                    generated: !!generatedBtn,
+                    digitized: !!digitizedBtn,
+                    favorites: !!favoritesBtn
+                });
+                
+                if (allBtn) {
+                    console.log('Testing All Patterns button...');
+                    allBtn.click();
+                }
+            };
+            
+            // Global function for filtering patterns
+            window.filterPatterns = function(category) {
+                console.log('Filtering patterns by category:', category);
+                
+                // Update current filter
+                currentCategoryFilter = category;
+                
+                // Update button states
+                updateCategoryButtons(category);
+                
+                // Reload patterns with filter
+                loadUserPatterns();
+            };
+            
+            // Function to update button visual states
+            function updateCategoryButtons(activeCategory) {
+                // Remove active class from all buttons
+                document.querySelectorAll('.template-category-btn').forEach(btn => {
+                    btn.classList.remove('active', 'bg-[#FF9F1C]', 'text-white');
+                    btn.classList.add('bg-white', 'border-2', 'border-[#FF9F1C]', 'text-[#FF9F1C]');
+                });
+                
+                // Add active class to the correct button
+                if (activeCategory === 'all') {
+                    const allBtn = document.getElementById('all-patterns-btn');
+                    if (allBtn) {
+                        allBtn.classList.add('active', 'bg-[#FF9F1C]', 'text-white');
+                        allBtn.classList.remove('bg-white', 'border-2', 'border-[#FF9F1C]', 'text-[#FF9F1C]');
+                    }
+                } else {
+                    const targetBtn = document.querySelector(`[data-category="${activeCategory}"]`);
+                    if (targetBtn) {
+                        targetBtn.classList.add('active', 'bg-[#FF9F1C]', 'text-white');
+                        targetBtn.classList.remove('bg-white', 'border-2', 'border-[#FF9F1C]', 'text-[#FF9F1C]');
+                    }
+                }
+            }
+            
+            // ====================================================================================
+            // PATTERN LIBRARY FUNCTIONS
+            // ====================================================================================
+            
+            function initializePatternLibrary() {
+                loadUserPatterns();
+                setupTemplateCategoryButtons();
+                setupPatternDetailModal();
+                setupSavePatternModal();
+                setupInteractiveFeatures();
+            }
+            
+            function setupTemplateCategoryButtons() {
+                console.log('Setting up category buttons...');
+                
+                // Simple, direct approach - no timeouts, no complexity
+                const allBtn = document.getElementById('all-patterns-btn');
+                const generatedBtn = document.querySelector('[data-category="generated"]');
+                const digitizedBtn = document.querySelector('[data-category="digitized"]');
+                const favoritesBtn = document.querySelector('[data-category="favorites"]');
+                
+                console.log('Found buttons:', {
+                    all: !!allBtn,
+                    generated: !!generatedBtn,
+                    digitized: !!digitizedBtn,
+                    favorites: !!favoritesBtn
+                });
+                
+                // All Patterns button
+                if (allBtn) {
+                    allBtn.onclick = function() {
+                        console.log('All Patterns clicked');
+                        currentCategoryFilter = 'all';
+                        setActiveCategory('all');
+                        loadUserPatterns();
+                    };
+                }
+                
+                // Generated button
+                if (generatedBtn) {
+                    generatedBtn.onclick = function() {
+                        console.log('Generated clicked');
+                        currentCategoryFilter = 'generated';
+                        setActiveCategory('generated');
+                        loadUserPatterns();
+                    };
+                }
+                
+                // Digitized button
+                if (digitizedBtn) {
+                    digitizedBtn.onclick = function() {
+                        console.log('Digitized clicked');
+                        currentCategoryFilter = 'digitized';
+                        setActiveCategory('digitized');
+                        loadUserPatterns();
+                    };
+                }
+                
+                // Favorites button
+                if (favoritesBtn) {
+                    favoritesBtn.onclick = function() {
+                        console.log('Favorites clicked');
+                        currentCategoryFilter = 'favorites';
+                        setActiveCategory('favorites');
+                        loadUserPatterns();
+                    };
+                }
+                
+                console.log('Category buttons setup complete');
+            }
+            
+            function setActiveCategory(category) {
+                // Remove active class from all buttons
+                document.querySelectorAll('.template-category-btn').forEach(btn => {
+                    btn.classList.remove('active', 'bg-[#FF9F1C]', 'text-white');
+                    btn.classList.add('bg-white', 'border-2', 'border-[#FF9F1C]', 'text-[#FF9F1C]');
+                });
+                
+                // Add active class to the correct button
+                if (category === 'all') {
+                    const allBtn = document.getElementById('all-patterns-btn');
+                    if (allBtn) {
+                        allBtn.classList.add('active', 'bg-[#FF9F1C]', 'text-white');
+                        allBtn.classList.remove('bg-white', 'border-2', 'border-[#FF9F1C]', 'text-[#FF9F1C]');
+                    }
+                } else {
+                    const targetBtn = document.querySelector(`[data-category="${category}"]`);
+                    if (targetBtn) {
+                        targetBtn.classList.add('active', 'bg-[#FF9F1C]', 'text-white');
+                        targetBtn.classList.remove('bg-white', 'border-2', 'border-[#FF9F1C]', 'text-[#FF9F1C]');
+                    }
+                }
+            }
+            
+            async function loadUserPatterns() {
+                try {
+                    console.log('Loading user patterns with filter:', currentCategoryFilter);
+                    const response = await fetch(userPatternsUrl);
+                    const data = await response.json();
+                    
+                    if (data.success) {
+                        console.log('All patterns:', data.patterns);
+                        
+                        // Apply filters
+                        let filteredPatterns = data.patterns;
+                        
+                        // Filter by category
+                        if (currentCategoryFilter !== 'all') {
+                            if (currentCategoryFilter === 'favorites') {
+                                // Filter by is_favorite field for favorites
+                                filteredPatterns = filteredPatterns.filter(pattern => 
+                                    pattern.is_favorite === true
+                                );
+                            } else {
+                                // Filter by category field for generated/digitized
+                                filteredPatterns = filteredPatterns.filter(pattern => 
+                                    pattern.category === currentCategoryFilter
+                                );
+                            }
+                            console.log('Filtered patterns:', filteredPatterns);
+                        }
+                        
+                        displayUserPatterns(filteredPatterns);
+                    }
+                } catch (error) {
+                    console.error('Error loading user patterns:', error);
+                }
+            }
+            
+            function displayUserPatterns(patterns) {
+                console.log('Displaying patterns:', patterns);
+                console.log('Current filter:', currentCategoryFilter);
+                
+                // Debug: Log favorite status for each pattern
+                patterns.forEach(pattern => {
+                    console.log(`Pattern "${pattern.name}": is_favorite = ${pattern.is_favorite}, category = ${pattern.category}`);
+                });
+                
+                userPatternsGrid.innerHTML = '';
+                
+                if (patterns.length === 0) {
+                    console.log('No patterns to display, showing empty state');
+                    emptyPatternsState.classList.remove('hidden');
+                    return;
+                }
+                
+                console.log('Displaying', patterns.length, 'patterns');
+                emptyPatternsState.classList.add('hidden');
+                
+                patterns.forEach(pattern => {
+                    const patternCard = document.createElement('div');
+                    patternCard.className = 'template-card';
+                    
+                    // Handle image display - check if preview_image exists and is not empty
+                    let imageHtml = '';
+                    if (pattern.preview_image && pattern.preview_image.trim() !== '') {
+                        imageHtml = `<img src="data:image/png;base64,${pattern.preview_image}" alt="${pattern.name}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                     <div class="w-full h-32 bg-gray-100 flex items-center justify-center text-gray-500" style="display: none;">
+                                         <div class="text-center">
+                                             <div class="text-2xl mb-1">🎨</div>
+                                             <div class="text-xs">No Preview</div>
+                                         </div>
+                                     </div>`;
+                    } else {
+                        imageHtml = `<div class="w-full h-32 bg-gray-100 flex items-center justify-center text-gray-500">
+                                         <div class="text-center">
+                                             <div class="text-2xl mb-1">🎨</div>
+                                             <div class="text-xs">No Preview</div>
+                                         </div>
+                                     </div>`;
+                    }
+                    
+                    // No favorite indicator needed
+                    const favoriteIcon = '';
+                    
+                    patternCard.innerHTML = `
+                        ${imageHtml}
+                        ${favoriteIcon}
+                        <div class="template-info">
+                            <div class="template-name">${pattern.name}</div>
+                            <div class="template-meta">
+                                <span>${pattern.grid_size}x${pattern.grid_size}</span>
+                                <span>${pattern.theme}</span>
+                            </div>
+                        </div>
+                    `;
+                    
+                    // Add double-click to load pattern for editing
+                    patternCard.addEventListener('dblclick', () => loadUserPattern(pattern));
+                    // Add single-click to show details
+                    patternCard.addEventListener('click', () => showPatternDetail(pattern));
+                    userPatternsGrid.appendChild(patternCard);
+                });
+            }
+            
+            function loadUserPattern(pattern) {
+                // Load pattern into the generator for editing
+                currentPattern = pattern.pattern_data;
+                dotsSlider.value = pattern.grid_size;
+                dotsValueDisplay.textContent = `${pattern.grid_size}x${pattern.grid_size}`;
+                themeSelect.value = pattern.theme;
+                
+                // Generate the pattern with current theme
+                generateCustomizedPattern(pattern.pattern_data, pattern.theme);
+            }
+            
+            function setupTemplateCategoryButtons() {
+                templateCategoryBtns.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        // Remove active class from all buttons
+                        templateCategoryBtns.forEach(b => b.classList.remove('active'));
+                        // Add active class to clicked button
+                        btn.classList.add('active');
+                        
+                        const category = btn.dataset.category;
+                        filterUserPatterns(category);
+                    });
+                });
+            }
+            
+            function setupDifficultyButtons() {
+                difficultyBtns.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        // Remove active class from all buttons
+                        difficultyBtns.forEach(b => b.classList.remove('active'));
+                        // Add active class to clicked button
+                        btn.classList.add('active');
+                        
+                        const difficulty = btn.dataset.difficulty;
+                        filterUserPatterns(null, difficulty);
+                    });
+                });
+            }
+            
+            function filterUserPatterns(category = null, difficulty = null) {
+                // This would filter the patterns based on category and difficulty
+                // For now, just reload all patterns
+                loadUserPatterns();
+            }
+            
+            function setupPatternDetailModal() {
+                // Close modal
+                closePatternModal.addEventListener('click', () => {
+                    patternDetailModal.classList.add('hidden');
+                });
+                
+                // Edit name functionality
+                editNameBtn.addEventListener('click', () => {
+                    patternNameInput.readOnly = false;
+                    patternNameInput.focus();
+                    patternNameInput.select();
+                });
+                
+                // Save pattern changes
+                savePatternChanges.addEventListener('click', async () => {
+                    if (!currentPatternDetail) return;
+                    
+                    try {
+                        const response = await fetch(updatePatternUrl, {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRFToken': csrftoken,
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                                pattern_id: currentPatternDetail.id,
+                                name: patternNameInput.value,
+                                category: patternCategorySelect.value,
+                                is_favorite: patternFavoriteCheckbox.checked
+                        })
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (data.success) {
+                            await customAlert('Pattern updated successfully!', 'Success');
+                            
+                            // Switch to the appropriate category tab if category changed
+                            const newCategory = patternCategorySelect.value;
+                            const isFavorite = patternFavoriteCheckbox.checked;
+                            
+                            console.log('Pattern updated - Category:', newCategory, 'Is Favorite:', isFavorite);
+                            
+                            if (newCategory !== currentPatternDetail.category) {
+                                filterPatterns(newCategory);
+                            } else if (isFavorite && currentCategoryFilter !== 'favorites') {
+                                // If marked as favorite and not in favorites view, switch to favorites
+                                filterPatterns('favorites');
+                            }
+                            
+                            loadUserPatterns(); // Refresh the list
+                            patternDetailModal.classList.add('hidden');
+                        } else {
+                            await customAlert('Error updating pattern: ' + data.error, 'Error');
+                        }
+                    } catch (error) {
+                        console.error('Error updating pattern:', error);
+                        await customAlert('Error updating pattern', 'Error');
+                    }
+                });
+                
+                // Delete pattern
+                deletePatternBtn.addEventListener('click', async () => {
+                    if (!currentPatternDetail) return;
+                    
+                    const confirmed = await customConfirm('Are you sure you want to delete this pattern?', 'Delete Pattern');
+                    if (confirmed) {
+                        try {
+                            const response = await fetch(deletePatternUrl, {
+                            method: 'POST',
+                            headers: {
+                                'X-CSRFToken': csrftoken,
+                                'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                                    pattern_id: currentPatternDetail.id
+                        })
+                        });
+                        
+                        const data = await response.json();
+                        
+                        if (data.success) {
+                                await customAlert('Pattern deleted successfully!', 'Success');
+                                loadUserPatterns(); // Refresh the list
+                                patternDetailModal.classList.add('hidden');
+                            } else {
+                                await customAlert('Error deleting pattern: ' + data.error, 'Error');
+                        }
+                    } catch (error) {
+                            console.error('Error deleting pattern:', error);
+                            await customAlert('Error deleting pattern', 'Error');
+                        }
+                    }
+                });
+                
+                // Download pattern
+                downloadPatternBtn.addEventListener('click', async () => {
+                    if (!currentPatternDetail) return;
+                    
+                    const link = document.createElement('a');
+                    link.href = `data:image/png;base64,${currentPatternDetail.preview_image}`;
+                    link.download = `${currentPatternDetail.name}.png`;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                });
+                
+                // Share pattern
+                sharePatternBtn.addEventListener('click', async () => {
+                    if (!currentPatternDetail) return;
+                    
+                    if (!currentPatternDetail.preview_image || currentPatternDetail.preview_image.trim() === '') {
+                        await customAlert('No image available for sharing', 'No Image');
+                        return;
+                    }
+                    
+                    if (navigator.share) {
+                        try {
+                            const response = await fetch(`data:image/png;base64,${currentPatternDetail.preview_image}`);
+                            const blob = await response.blob();
+                            const file = new File([blob], `${currentPatternDetail.name}.png`, { type: blob.type });
+                            
+                            await navigator.share({
+                                files: [file],
+                                title: currentPatternDetail.name,
+                                text: 'Check out this Kolam pattern I created with KolamAI!',
+                            });
+                    } catch (error) {
+                            console.error('Error sharing:', error);
+                        }
+                    } else {
+                        // Fallback: copy to clipboard or show alert
+                        await customAlert('Sharing not supported on this browser. You can download the pattern instead.', 'Sharing Not Supported');
+                    }
+                });
+            }
+            
+            function setupSavePatternModal() {
+                // Close modal
+                closeSaveModal.addEventListener('click', () => {
+                    savePatternModal.classList.add('hidden');
+                    // Clear form
+                    savePatternName.value = '';
+                    savePatternCategory.value = 'generated';
+                });
+                
+                // Cancel button
+                cancelSavePattern.addEventListener('click', () => {
+                    savePatternModal.classList.add('hidden');
+                    // Clear form
+                    savePatternName.value = '';
+                    savePatternCategory.value = 'generated';
+                    nameError.classList.add('hidden');
+                });
+                
+                // Clear name error when user types
+                savePatternName.addEventListener('input', () => {
+                    nameError.classList.add('hidden');
+                });
+                
+                // Confirm save button
+                confirmSavePattern.addEventListener('click', async () => {
+                    const name = savePatternName.value.trim();
+                    
+                    if (!name) {
+                        await customAlert('Please enter a pattern name', 'Name Required');
+                        return;
+                    }
+                    
+                    // Check for duplicate names
+                    const isDuplicate = await checkDuplicateName(name);
+                    if (isDuplicate) {
+                        nameError.textContent = 'A pattern with this name already exists. Please choose a different name.';
+                        nameError.classList.remove('hidden');
+                        return;
+                    }
+                    
+                    // Determine which pattern to save
+                    let patternToSave = null;
+                    let category = null;
+                    
+                    if (patternSelection.classList.contains('hidden')) {
+                        // Single pattern mode - use category selection
+                        category = savePatternCategory.value;
+                        patternToSave = category === 'generated' ? currentGeneratedPattern : currentDigitizedPattern;
+                    } else {
+                        // Multiple patterns mode - use pattern selection
+                        const selectedPattern = document.querySelector('input[name="pattern-choice"]:checked').value;
+                        category = selectedPattern;
+                        patternToSave = selectedPattern === 'generated' ? currentGeneratedPattern : currentDigitizedPattern;
+                    }
+                    
+                    if (!patternToSave) {
+                        await customAlert('Selected pattern not found', 'Error');
+                        return;
+                    }
+                    
+                    // Close modal and clear form
+                    savePatternModal.classList.add('hidden');
+                    savePatternName.value = '';
+                    savePatternCategory.value = 'generated';
+                    
+                    // Save the pattern
+                    await saveUserPattern(name, category, patternToSave);
+                });
+                
+                // Enhanced save pattern modal logic
+                const originalShowSavePatternModal = window.showSavePatternModal;
+                window.showSavePatternModal = function() {
+                    // Check if both patterns exist
+                    const hasGenerated = currentGeneratedPattern !== null;
+                    const hasDigitized = currentDigitizedPattern !== null;
+                    
+                    if (hasGenerated && hasDigitized) {
+                        // Show pattern selection
+                        patternSelection.classList.remove('hidden');
+                        categorySelection.classList.add('hidden');
+                        
+                        // Set default selection to generated
+                        document.querySelector('input[name="pattern-choice"][value="generated"]').checked = true;
+                    } else if (hasGenerated) {
+                        // Only generated pattern exists
+                        patternSelection.classList.add('hidden');
+                        categorySelection.classList.remove('hidden');
+                        savePatternCategory.value = 'generated';
+                    } else if (hasDigitized) {
+                        // Only digitized pattern exists
+                        patternSelection.classList.add('hidden');
+                        categorySelection.classList.remove('hidden');
+                        savePatternCategory.value = 'digitized';
+                    } else {
+                        // No patterns exist
+                        customAlert('No patterns to save. Please generate or digitize a pattern first.', 'No Patterns');
+                        return;
+                    }
+                    
+                    // Clear previous inputs
+                    savePatternName.value = '';
+                    nameError.classList.add('hidden');
+                    
+                    // Show modal
+                    savePatternModal.classList.remove('hidden');
+                    savePatternName.focus();
+                };
+            }
+            
+            // Check for duplicate pattern names
+            async function checkDuplicateName(name) {
+                try {
+                    const response = await fetch(userPatternsUrl);
+                    const data = await response.json();
+                    
+                    if (data.success && data.patterns) {
+                        return data.patterns.some(pattern => 
+                            pattern.name.toLowerCase() === name.toLowerCase()
+                        );
+                    }
+                    return false;
+                } catch (error) {
+                    console.error('Error checking duplicate names:', error);
+                    return false;
+                }
+            }
+            
+            // Custom Alert and Confirm Functions
+            function customAlert(message, title = 'Information') {
+                return new Promise((resolve) => {
+                    alertTitle.textContent = title;
+                    alertMessage.textContent = message;
+                    customAlertModal.classList.remove('hidden');
+                    
+                    // Set up one-time event listener
+                    const handleOk = () => {
+                        customAlertModal.classList.add('hidden');
+                        alertOkBtn.removeEventListener('click', handleOk);
+                        resolve();
+                    };
+                    
+                    alertOkBtn.addEventListener('click', handleOk);
+                });
+            }
+            
+            function customConfirm(message, title = 'Confirm Action') {
+                return new Promise((resolve) => {
+                    confirmTitle.textContent = title;
+                    confirmMessage.textContent = message;
+                    customConfirmModal.classList.remove('hidden');
+                    
+                    // Set up one-time event listeners
+                    const handleOk = () => {
+                        customConfirmModal.classList.add('hidden');
+                        confirmOkBtn.removeEventListener('click', handleOk);
+                        confirmCancelBtn.removeEventListener('click', handleCancel);
+                        resolve(true);
+                    };
+                    
+                    const handleCancel = () => {
+                        customConfirmModal.classList.add('hidden');
+                        confirmOkBtn.removeEventListener('click', handleOk);
+                        confirmCancelBtn.removeEventListener('click', handleCancel);
+                        resolve(false);
+                    };
+                    
+                    confirmOkBtn.addEventListener('click', handleOk);
+                    confirmCancelBtn.addEventListener('click', handleCancel);
+                });
+            }
+            
+            function showPatternDetail(pattern) {
+                currentPatternDetail = pattern;
+                
+                // Populate modal with pattern data
+                patternNameInput.value = pattern.name;
+                patternGridSize.value = `${pattern.grid_size}x${pattern.grid_size}`;
+                patternTheme.value = pattern.theme;
+                patternCategorySelect.value = pattern.category || 'generated';
+                patternCreatedDate.value = new Date(pattern.created_at).toLocaleDateString();
+                patternFavoriteCheckbox.checked = pattern.is_favorite;
+                
+                // Show pattern image
+                if (pattern.preview_image && pattern.preview_image.trim() !== '') {
+                    patternDetailImage.src = `data:image/png;base64,${pattern.preview_image}`;
+                    patternDetailImage.classList.remove('hidden');
+                    patternDetailPlaceholder.classList.add('hidden');
+                    
+                    // Handle image load error
+                    patternDetailImage.onerror = () => {
+                        patternDetailImage.classList.add('hidden');
+                        patternDetailPlaceholder.classList.remove('hidden');
+                    };
+                } else {
+                    patternDetailImage.classList.add('hidden');
+                    patternDetailPlaceholder.classList.remove('hidden');
+                }
+                
+                // Update download and share buttons with current pattern data
+                downloadPatternBtn.onclick = async () => {
+                    if (pattern.preview_image && pattern.preview_image.trim() !== '') {
+                        const link = document.createElement('a');
+                        link.href = `data:image/png;base64,${pattern.preview_image}`;
+                        link.download = `${pattern.name}.png`;
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                    } else {
+                        await customAlert('No image available for download', 'No Image');
+                    }
+                };
+                
+                // Make name input readonly initially
+                patternNameInput.readOnly = true;
+                
+                // Show modal
+                patternDetailModal.classList.remove('hidden');
+            }
+            
+            // ====================================================================================
+            // ADVANCED CUSTOMIZATION FUNCTIONS
+            // ====================================================================================
+            
+            
+            // ====================================================================================
+            // PATTERN LIBRARY TOOLS FUNCTIONS
+            // ====================================================================================
+            
+            function setupInteractiveFeatures() {
+                setupSavePatternButton();
+                loadUserPreferences();
+            }
+            
+            
+            
+            
+            function setupSavePatternButton() {
+                savePatternBtn.addEventListener('click', async () => {
+                    if (!currentPattern) {
+                        await customAlert('No pattern to save', 'No Pattern');
+                        return;
+                    }
+                    
+                    showSavePatternModal();
+                });
+            }
+            
+            function showSavePatternModal() {
+                // Show the save pattern modal
+                document.getElementById('save-pattern-modal').classList.remove('hidden');
+            }
+            
+            async function saveUserPattern(name, category = null, patternToSave = null) {
+                try {
+                    // Use provided pattern or fall back to currentPattern
+                    const pattern = patternToSave || currentPattern;
+                    
+                    if (!pattern) {
+                        await customAlert('No pattern to save', 'No Pattern');
+                        return;
+                    }
+                    
+                    // Determine the source of the pattern and set category automatically
+                    const isDigitized = pattern && pattern.type === 'digitized';
+                    const gridSize = isDigitized ? pattern.grid_size : parseInt(dotsSlider.value);
+                    const theme = isDigitized ? pattern.theme : themeSelect.value;
+                    
+                    // Auto-determine category based on pattern type
+                    if (!category) {
+                        category = isDigitized ? 'digitized' : 'generated';
+                    }
+                    
+                    // Prepare pattern data - ensure it's in the right format
+                    let patternData;
+                    if (isDigitized) {
+                        // For digitized patterns, store the image and metadata
+                        patternData = {
+                            type: 'digitized',
+                            image: pattern.image,
+                            grid_size: pattern.grid_size,
+                            theme: pattern.theme
+                        };
+                    } else {
+                        // For generated patterns, store the actual pattern data
+                        patternData = pattern.pattern_data || pattern;
+                        
+                        // Debug: Log the pattern data structure
+                        console.log('Saving pattern data:', {
+                            type: typeof patternData,
+                            isObject: typeof patternData === 'object',
+                            hasDots: patternData && 'dots' in patternData,
+                            hasCurves: patternData && 'curves' in patternData,
+                            keys: patternData && typeof patternData === 'object' ? Object.keys(patternData) : 'N/A'
+                        });
+                    }
+                    
+                    const response = await fetch(savePatternUrl, {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRFToken': csrftoken,
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            name: name,
+                            pattern_data: patternData,
+                            grid_size: gridSize,
+                            theme: theme,
+                            category: category,
+                            is_favorite: false
+                        })
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (data.success) {
+                        await customAlert('Pattern saved successfully!', 'Success');
+                        
+                        // Switch to the appropriate category tab
+                        if (category === 'generated') {
+                            filterPatterns('generated');
+                        } else if (category === 'digitized') {
+                            filterPatterns('digitized');
+                        }
+                        
+                        loadUserPatterns(); // Refresh user patterns
+                    } else {
+                        await customAlert('Error saving pattern: ' + data.error, 'Error');
+                    }
+                } catch (error) {
+                    console.error('Error saving pattern:', error);
+                    await customAlert('Error saving pattern: ' + error.message, 'Error');
+                }
+            }
+            
+            
+            async function loadUserPreferences() {
+                try {
+                    const response = await fetch(preferencesUrl);
+                    const data = await response.json();
+                    
+                    if (data.success) {
+                        const prefs = data.preferences;
+                        lineThicknessSlider.value = prefs.line_thickness;
+                        lineThicknessValue.textContent = prefs.line_thickness;
+                        dotSizeSlider.value = prefs.dot_size;
+                        dotSizeValue.textContent = prefs.dot_size;
+                        patternDensitySelect.value = prefs.pattern_density;
+                        symmetryTypeSelect.value = prefs.symmetry_type;
+                        
+                        currentCustomization = {
+                            line_thickness: prefs.line_thickness,
+                            dot_size: prefs.dot_size,
+                            pattern_density: prefs.pattern_density,
+                            symmetry_type: prefs.symmetry_type
+                        };
+                    }
+                } catch (error) {
+                    console.error('Error loading preferences:', error);
+                }
+            }
+            
 
             async function generateKolamManually() {
                 generateButton.textContent = 'Generating...';
@@ -618,26 +1947,40 @@
                 generatedImageContainer.innerHTML = `<div class="w-full h-full flex items-center justify-center"><div class="w-12 h-12 border-4 border-[#FF9F1C] rounded-full spinner"></div></div>`;
                 
                 const dots = dotsSlider.value;
-                const formData = new FormData();
-                formData.append('dots', dots);
-                formData.append('generate', ''); // Add the 'generate' key to match backend logic
+                const theme = themeSelect.value;
 
                 try {
                     const response = await fetch(generateUrl, {
                         method: 'POST',
-                        headers: { 'X-CSRFToken': csrftoken },
-                        body: formData
+                        headers: { 
+                            'X-CSRFToken': csrftoken,
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ 
+                            dots: dots,
+                            theme: theme
+                        })
                     });
                     if (!response.ok) throw new Error(`Server responded with status: ${response.status}`);
-                    const htmlText = await response.text();
-                    const parser = new DOMParser();
-                    const doc = parser.parseFromString(htmlText, 'text/html');
-                    const generatedImg = doc.querySelector('img[alt="Recreated Kolam Design"]');
-                     if (generatedImg && generatedImg.src) {
-                        generatedImageContainer.innerHTML = `<img src="${generatedImg.src}" alt="Generated Kolam Design" class="max-w-full max-h-full rounded-lg shadow-md">`;
-                        setupActionButtons(generatedImg.src, 'download-generated-btn', 'share-generated-btn', 'generated-actions', 'generated-kolam');
+                    const data = await response.json();
+                    if (data.success && data.generated_image) {
+                        const imageSrc = `data:image/png;base64,${data.generated_image}`;
+                        generatedImageContainer.innerHTML = `<img src="${imageSrc}" alt="Traditional Kolam" class="max-w-full max-h-full rounded-lg shadow-md">`;
+                        setupActionButtons(imageSrc, 'download-generated-btn', 'share-generated-btn', 'generated-actions', 'traditional-kolam');
+                        
+                        // Store the generated pattern data for saving
+                        currentGeneratedPattern = {
+                            type: 'generated',
+                            image: data.generated_image,
+                            grid_size: parseInt(dots),
+                            theme: theme,
+                            pattern_data: data.pattern_data || data.pattern_info || null
+                        };
+                        
+                        // Update current pattern for backward compatibility
+                        currentPattern = currentGeneratedPattern;
                     } else {
-                        throw new Error('Could not find the generated image in the server response.');
+                        throw new Error(data.error || 'Could not generate the Kolam.');
                     }
                 } catch (error) {
                      console.error("Error generating Kolam:", error);
@@ -755,4 +2098,3 @@
     </script>
 </body>
 </html>
-

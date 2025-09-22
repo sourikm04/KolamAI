@@ -86,7 +86,7 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
                         <!-- Developer 1 -->
                         <div class="card text-center p-8">
-                            <img src="{% static 'img/Ankana.jpg' %}" alt="Developer Anika Desai" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-orange-200">
+                            <img src="{% static 'img/Ankana.jpg' %}" alt="Developer Ankana Debnath" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-orange-200">
                             <h3 class="text-2xl font-bold mb-1">Ankana Debnath</h3>
                             <p class="font-semibold text-[#FF9F1C] mb-2">Team Lead</p>
                             <p class="text-md text-gray-600">Ankana, our SIH team lead, spearheads our project with research and design expertise.</p>
@@ -99,7 +99,7 @@
 
                         <!-- Developer 2 -->
                         <div class="card text-center p-8">
-                            <img src="{% static 'img/Sourik.jpg' %}" alt="Developer Rohan Verma" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-orange-200">
+                            <img src="{% static 'img/Sourik.jpg' %}" alt="Developer Sourik Majumdar" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-orange-200">
                             <h3 class="text-2xl font-bold mb-1">Sourik Majumdar</h3>
                             <p class="font-semibold text-[#FF9F1C] mb-2">Lead Frontend Developer</p>
                             <p class="text-md text-gray-600">Sourik crafts the user experience, ensuring the platform is both beautiful and intuitive.</p>
@@ -120,12 +120,12 @@
                                 <a href="https://github.com/GenomeHykis" aria-label="GitHub" class="text-gray-500 hover:text-[#432818] transition-colors"><i class="fab fa-github"></i></a>
                                 <a href="http://www.linkedin.com/in/aditya-kiran-modak-5a51172a8" aria-label="LinkedIn" class="text-gray-500 hover:text-[#432818] transition-colors"><i class="fab fa-linkedin"></i></a>
                                 <a href="mailto:adityakiran694@gmail.com" aria-label="Email" class="text-gray-500 hover:text-[#432818] transition-colors"><i class="fas fa-envelope"></i></a>
-                            </div>    
+                            </div>   
                         </div>
 
                         <!-- Developer 4 -->
                         <div class="card text-center p-8">
-                            <img src="{% static 'img/Chandraniv.jpg' %}" alt="Developer Arjun Rao" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-orange-200">
+                            <img src="{% static 'img/Chandraniv.jpg' %}" alt="Developer Chandraniv Chakraborty" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-orange-200">
                             <h3 class="text-2xl font-bold mb-1">Chandraniv Chakraborty</h3>
                             <p class="font-semibold text-[#FF9F1C] mb-2">Backend Developer</p>
                             <p class="text-md text-gray-600">Chandraniv, our backend developer, engineers the robust and scalable engine that powers our entire platform.</p>
@@ -138,7 +138,7 @@
 
                         <!-- Developer 5 -->
                         <div class="card text-center p-8">
-                            <img src="{% static 'img/Anubhav.jpg' %}" alt="Developer Meera Krishnan" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-orange-200">
+                            <img src="{% static 'img/Anubhav.jpg' %}" alt="Developer Anubhav Sen" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-orange-200">
                             <h3 class="text-2xl font-bold mb-1">Anubhab Sen</h3>
                             <p class="font-semibold text-[#FF9F1C] mb-2">Database Developer</p>
                             <p class="text-md text-gray-600">Anubhab, as our database developer, expertly architects and safeguards our application's critical data infrastructure.</p>
@@ -151,8 +151,8 @@
 
                         <!-- Developer 6 -->
                         <div class="card text-center p-8">
-                            <img src="{% static 'img/Ishita.jpg' %}" alt="Developer Vikram Singh" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-orange-200">
-                            <h3 class="text-2xl font-bold mb-1">Ishika Pramanik</h3>
+                            <img src="{% static 'img/Ishita.jpg' %}" alt="Developer Ishita Pramanik" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-orange-200">
+                            <h3 class="text-2xl font-bold mb-1">Ishita Pramanik</h3>
                             <p class="font-semibold text-[#FF9F1C] mb-2">Speaker / Researcher</p>
                             <p class="text-md text-gray-600">Ishika, as our Speaker and Researcher, masterfully transforms complex findings into clear and compelling insights for our audience.</p>
                             <div class="mt-4 flex justify-center space-x-4 text-xl">
@@ -190,7 +190,7 @@
 </body>
 <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const homeLinks = document.querySelectorAll('a[href="{% url \'index\' %}"]');
+            const homeLinks = document.querySelectorAll('a[href="{{ index_url }}"]');
             
             homeLinks.forEach(link => {
                 link.addEventListener('click', (e) => {
